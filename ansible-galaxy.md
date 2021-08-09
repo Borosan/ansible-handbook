@@ -410,7 +410,9 @@ centos                     : ok=45   changed=11   unreachable=0    failed=0    s
 ubuntu                     : ok=52   changed=16   unreachable=0    failed=0    skipped=24   rescued=0    ignored=0
 ```
 
-and it does tons of tasks. That's all, good luck !
+and it runs tons of tasks. That's all, good luck !
+
+![thank you my wife \(T.M\)](.gitbook/assets/covid19-survivor.jpg)
 
 .
 
