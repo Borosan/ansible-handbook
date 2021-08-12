@@ -17,7 +17,7 @@ Donation :
 * ethereum: 0x6F3D43A6957CC61b74Fe85Ad52D05d91a2B13c67
 * litecoin: ltc1qvxu57q2f3ay9tzu6tffkayc65te80vax9wzxn7
 
-
+![](.gitbook/assets/ansible-handbook-v3-.jpg)
 
 ![](.gitbook/assets/cc-by-nc-icon-88x31.png)
 
