@@ -306,12 +306,6 @@ Now we can do every thing with user1 and it does not required password!
 
 
 
-
-
-
-
-
-
 .
 
 .
