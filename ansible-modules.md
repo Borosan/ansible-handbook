@@ -185,25 +185,25 @@ Installs, upgrade, downgrades, removes, and lists packages and groups with the _
 
 ```text
 ---
-#Sample Ansible Playbook-yum.yml
+#Sample Ansible yum-playbook.yml
 -
   name: Install package(s) using yum
-  hosts: localhost
+  hosts: centos
   tasks:
     - name: Install the latest version of Apache
       yum:
         name: httpd
         state: latest
 
-    - name: Install Apache >= 2.4
+    - name: Install apache >= 2.4
       yum:
         name: httpd>=2.4
         state: present
         
-    - name: Install a list of packages
+    - name: Install a list of packages (suitable replacement for 2.11 loop deprecation warning)
       yum:
-        name: Install nginx and postgresql
-          - nginx
+        name: Install apache and postgresql
+          - httpd
           - postgresql
           - postgresql-server
         state: present
