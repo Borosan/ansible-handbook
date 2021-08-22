@@ -142,7 +142,7 @@ This module is useful for sending emails from playbooks.
 
 ```
 ---
-#Sample Ansible Playbook-mail.yml
+#Sample Ansible mail-playbook.yml
 -
   name: sending mail 
   hosts: localhost
