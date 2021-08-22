@@ -36,22 +36,22 @@ Command Modules  executes a command on a remote node, it is good to know that co
 
 ```text
 ---
-#Simple Ansible Playbook-command.yml
+# Simple ansible playbook command-playbook.yaml
 -
   name: Play commands
   hosts: localhost
   tasks:
      - name: Execute command 'date'
        command: date
-     
-     - name: Display resolv.conf contents 
-       command: car /etc/resolv.conf
-       
+
+     - name: Display resolv.conf contents
+       command: cat /etc/resolv.conf
+
      - name: Display resolv.conf contents using chdir
        command: cat resolv.conf chdir=/etc
-       
-     - name: Create a directory 
-       command: mkdir /folder create=/folder
+
+     - name: Create a directory
+       command: mkdir /home/user1/folder create=folder
 ```
 
 {% hint style="warning" %}
