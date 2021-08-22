@@ -130,7 +130,7 @@ Lineinfile module is used to find a line in a file and replace it or add it if i
   tasks:
     -  name: Add DNS server to resolv.conf
        lineinfile:
-         path: /etc/resolve.conf
+         path: /etc/resolv.conf
          line: 'nameserver 8.8.8.8'
 ```
 
