@@ -36,7 +36,7 @@ Command Modules  executes a command on a remote node, it is good to know that co
 
 ```text
 ---
-# Simple ansible playbook command-playbook.yaml
+# Simple ansible playbook command-playbook.yml
 -
   name: Play commands
   hosts: localhost
@@ -51,7 +51,7 @@ Command Modules  executes a command on a remote node, it is good to know that co
        command: cat resolv.conf chdir=/etc
 
      - name: Create a directory
-       command: mkdir /home/user1/folder create=folder
+       command: mkdir /home/user1/demo-module/folder
 ```
 
 {% hint style="warning" %}
@@ -64,14 +64,13 @@ Runs a local script on one or more remote node\(s\) after transferring it.
 
 ```text
 ---
-#Sample Ansible Playbook-script.yml
+#Sample Ansible script-playbook.yml
 -
   name: Play Scripts
   hosts: localhost
   tasks:
     - name: Run a script on remote server
-      script: /some/local/script.sh -arg1 -arg2
-
+      script: /home/user1/demo-module/script.sh
 ```
 
 ### service module
@@ -83,16 +82,13 @@ Used to manage services on a system, Start, Stop, Restart. The Service module  *
 #Sample Ansible Playbook-service.yml
 -
   name: Start some Services in order
-  hosts: localhost
+  hosts: centos
   tasks:
     - name: Start the database service
       service: name=postgresql state=started
       
     - name: Start the httpd service
       service: name=httpd state=started
-      
-    - name: Start the nginx service
-      service: name=nginx state=started
 ```
 
  also we  can write above playbook  it in a dictionary or map format like this:
