@@ -189,6 +189,7 @@ Installs, upgrade, downgrades, removes, and lists packages and groups with the _
 -
   name: Install package(s) using yum
   hosts: centos
+  become: yes
   tasks:
     - name: Install the latest version of Apache
       yum:
@@ -222,7 +223,8 @@ This module allows for addition or deletion of services and ports \(either TCP o
 #Sample Ansible Playbook-firewalld.yml
 -
   name: Set Firewall Configurations
-  hosts: web
+  hosts: centos
+  become: yes
   tasks:
     -  firewalld:
          service: https
