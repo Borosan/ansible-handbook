@@ -79,7 +79,7 @@ Used to manage services on a system, Start, Stop, Restart. The Service module  *
 
 ```text
 ---
-#Sample Ansible Playbook-service.yml
+#Sample Ansible service-playbook1.yml
 -
   name: Start some Services in order
   hosts: centos
@@ -95,10 +95,10 @@ Used to manage services on a system, Start, Stop, Restart. The Service module  *
 
 ```text
 ---
-#Sample Ansible Playbook-service.yml
+#Sample Ansible service-playbook2.yml
 -
   name: Start some Services in order
-  hosts: localhost
+  hosts: centos
   tasks:
     - name: Start the database service
       service:
@@ -109,11 +109,6 @@ Used to manage services on a system, Start, Stop, Restart. The Service module  *
       service:
          name: httpd
          state: started
-         
-    - name: Start the nginx service
-      service:
-         name: nginx
-         state: started  
 ```
 
 `started`ensures that `httpd` service is started, so if it is already started, do nothing. As we mentioned before, this is called idempotency.
