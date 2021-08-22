@@ -51,7 +51,7 @@ Command Modules  executes a command on a remote node, it is good to know that co
        command: cat resolv.conf chdir=/etc
 
      - name: Create a directory
-       command: mkdir /home/user1/demo-module/folder
+       command: mkdir /home/demo-module/user1/folder
 ```
 
 {% hint style="warning" %}
@@ -67,7 +67,8 @@ Runs a local script on one or more remote node\(s\) after transferring it.
 #Sample Ansible script-playbook.yml
 -
   name: Play Scripts
-  hosts: localhost
+  hosts: centos
+  become: yes
   tasks:
     - name: Run a script on remote server
       script: /home/user1/demo-module/script.sh
@@ -83,6 +84,7 @@ Used to manage services on a system, Start, Stop, Restart. The Service module  *
 -
   name: Start some Services in order
   hosts: centos
+  become: yes
   tasks:
     - name: Start the database service
       service: name=postgresql state=started
@@ -99,6 +101,7 @@ Used to manage services on a system, Start, Stop, Restart. The Service module  *
 -
   name: Start some Services in order
   hosts: centos
+  become: yes
   tasks:
     - name: Start the database service
       service:
