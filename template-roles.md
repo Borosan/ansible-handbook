@@ -309,7 +309,41 @@ centos                     : ok=1    changed=0    unreachable=0    failed=0    s
 ubuntu                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-that's all.
+when we want to create a role, we can either create required file structure manually or we can use **`ansible-galaxy`** command:
+
+```text
+[user1@controller demo-roles]$ ansible-galaxy init new_role
+- Role new_role was created successfully
+```
+
+```text
+.
+├── new_role
+│   ├── defaults
+│   │   └── main.yml
+│   ├── files
+│   ├── handlers
+│   │   └── main.yml
+│   ├── meta
+│   │   └── main.yml
+│   ├── README.md
+│   ├── tasks
+│   │   └── main.yml
+│   ├── templates
+│   ├── tests
+│   │   ├── inventory
+│   │   └── test.yml
+│   └── vars
+│       └── main.yml
+|
+.
+.
+.
+```
+
+> do not forget to edit README file!
+
+that's all. 
 
 .
 
