@@ -122,7 +122,7 @@ Using include statements is our trick to split a large playbook into smaller pie
 Lets see an example:
 
 ```text
-[user1@controller demo-role]$ cat update-systems-play.yaml
+[user1@controller demo-file]$ cat update-systems-play.yaml
 ---
 
 - hosts: all
@@ -139,7 +139,7 @@ Lets see an example:
 ```
 
 ```text
-[user1@controller demo-role]$ cat install-web-task.yaml
+[user1@controller demo-file]$ cat install-web-task.yaml
 ---
 
 - name: install on debian
@@ -163,7 +163,7 @@ Lets see an example:
 and finally or main playbook:
 
 ```text
-[user1@controller demo-role]$ cat include-playbook.yaml
+[user1@controller demo-file]$ cat include-playbook.yaml
 ---
 
 - include: update-systems-play.yaml
@@ -177,7 +177,7 @@ and finally or main playbook:
 and lets check the results:
 
 ```text
-[user1@controller demo-role]$ ansible-playbook include-playbook.yaml
+[user1@controller demo-file]$ ansible-playbook include-playbook.yaml
 
 PLAY [all] *********************************************************************
 
