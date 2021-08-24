@@ -341,7 +341,7 @@ when we want to create a role, we can either create required file structure manu
 .
 ```
 
-> do not forget to edit README file!
+> You can remove unnecessary files, and do not forget to edit README file!
 
 that's all. 
 
