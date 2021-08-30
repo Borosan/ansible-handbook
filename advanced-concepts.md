@@ -145,6 +145,8 @@ ansible all -B 1800 -P 60 -a "/usr/bin/long_running_operation --do-stuff"
 Asynchronous mode is best suited to long-running shell commands or software upgrades. Running the copy module asynchronously, for example, does not do a background file transfer.
 {% endhint %}
 
+
+
 .
 
 .
