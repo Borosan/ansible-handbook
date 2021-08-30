@@ -117,7 +117,7 @@ Ansible provides the option to get the task status in any time. Using ansible as
 
 > execute the playbook with `-v` option so that we can see the Job ID of first task to check its status later.
 
-To check the status of first task on target  node\(s\) in a later time we can also use ad hoc commands:
+To check the status of first task on target  node\(s\) in a later time we can use ad hoc commands:
 
 ```text
 ansible centos -m async_status -a "jid=903212800377.10413" 
