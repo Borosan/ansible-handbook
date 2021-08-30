@@ -414,9 +414,7 @@ and it runs tons of tasks.
 
 ### Upload to Galaxy
 
-To upload a role to ansibel galaxy, first you have to upload it to your github project and next log in to your ansible galaxy account and pull that, That's all, good luck !
-
-![thank you my wife \(T.M\)](.gitbook/assets/covid19-survivor.jpg)
+To upload a role to ansibel galaxy, first you have to upload it to your github project and next log in to your ansible galaxy account and pull that, That's all.
 
 .
 
