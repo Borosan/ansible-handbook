@@ -11,4 +11,5 @@
 * [Ansible Vault](ansible-vault.md)
 * [Template, Roles](template-roles.md)
 * [Ansible Galaxy](ansible-galaxy.md)
+* [Advanced Concepts](advanced-concepts.md)
 
