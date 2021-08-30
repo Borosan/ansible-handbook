@@ -149,9 +149,44 @@ ansible all -B 1800 -P 60 -a "/usr/bin/long_running_operation --do-stuff"
 Asynchronous mode is best suited to long-running shell commands or software upgrades. Running the copy module asynchronously, for example, does not do a background file transfer.
 {% endhint %}
 
-## Strategy
+## Strategies
 
- Strategies are a way to control play execution. By default, plays run with a `linear` strategy, in which all hosts will run each task before any host starts the next task
+ What exactly strategies is ? Strategies define how a playbook is executed in ansible  . Lets start explaining with an example:
+
+```text
+---
+#sample ansible playbook (strategies)
+-
+  name: Deploy Web Application
+  hosts: server1
+  tasks:
+   - name: install dependencies
+       . . . < Code Hidden > . . .
+   
+   - name: install MySQL database
+       . . . < Code Hidden > . . .
+  
+    - name: start MySQL service
+       . . . < Code Hidden > . . .
+  
+    - name: install Python Flask dependencies
+       . . . < Code Hidden > . . .
+   
+   - name: run Web-Server
+       . . . < Code Hidden > . . .
+```
+
+With this playbook ,imaging we are trying to install a web application on a single server in an all-in-one mode \(meaning we have a database and web server running on a same system\) It is pretty straight forward in a single server. When ansible runs it completes one task after the other :
+
+![](.gitbook/assets/adv-strategies.jpg)
+
+Now let's see how it works when there are multiple servers.
+
+### linear strategy
+
+By default, plays run with a `linear` strategy, in which all hosts will run each task before any host starts the next task:
+
+![](.gitbook/assets/adv-strategylinier.jpg)
 
 
 
