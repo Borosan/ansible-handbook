@@ -4,7 +4,7 @@ description: >-
   introduce useful options.
 ---
 
-# Advanced Concepts
+# Advanced Topics
 
 ## How to handle long running tasks in Ansible?
 
@@ -150,6 +150,8 @@ Asynchronous mode is best suited to long-running shell commands or software upgr
 {% endhint %}
 
 ## Strategy
+
+ Strategies are a way to control play execution. By default, plays run with a `linear` strategy, in which all hosts will run each task before any host starts the next task
 
 
 
