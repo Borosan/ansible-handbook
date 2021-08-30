@@ -1,7 +1,7 @@
 ---
 description: >-
   In this section we take a quick look at more advanced concepts in ansible and
-  introduce useful options.
+  introduce some useful options.
 ---
 
 # Advanced Topics
@@ -186,15 +186,90 @@ Now let's see how it works when there are multiple servers.
 
 By default, plays run with a `linear` strategy, in which all hosts will run each task before any host starts the next task:
 
+```text
+---
+#sample ansible playbook (linier strategy)
+-
+  name: Deploy Web Application
+  hosts: server1, server2, server3
+  tasks:
+   - name: install dependencies
+       . . . < Code Hidden > . . .
+   
+   - name: install MySQL database
+       . . . < Code Hidden > . . .
+  
+    - name: start MySQL service
+       . . . < Code Hidden > . . .
+  
+    - name: install Python Flask dependencies
+       . . . < Code Hidden > . . .
+   
+   - name: run Web-Server
+       . . . < Code Hidden > . . .
+```
+
 ![](.gitbook/assets/adv-strategylinier.jpg)
 
 ### free strategy
 
 In this case, each server run all of its tasks independent of the other servers, and does not wait for the task to finish on the other servers. So each server can go right to the end as fast as it can and a host that is slow or stuck on a specific task won’t hold up the rest of the hosts and tasks.
 
+```text
+---
+#sample ansible playbook (free strategy)
+-
+  name: Deploy Web Application
+  strategy: free
+  hosts: server1
+  tasks:
+   - name: install dependencies
+       . . . < Code Hidden > . . .
+   
+   - name: install MySQL database
+       . . . < Code Hidden > . . .
+  
+    - name: start MySQL service
+       . . . < Code Hidden > . . .
+  
+    - name: install Python Flask dependencies
+       . . . < Code Hidden > . . .
+   
+   - name: run Web-Server
+       . . . < Code Hidden > . . .
+```
+
 ![](.gitbook/assets/adv-strategyfree.jpg)
 
 ### BATCH strategy
+
+Imagine we have 5 servers but we want ansible to execute 3 at a time. This is where bad processing helps us. This is not a sperate strategy this is based on linier strategy but we can control number of servers executed at once or in a batch. 
+
+_In playbook we do not have free strategy but there is a new option called_ **`serial`** _where you can specify the number of servers you would like to process together:_
+
+```text
+---
+#sample ansible playbook (BATCH strategy)
+-
+  name: Deploy Web Application
+  serial: 3
+  hosts: server1
+  tasks:
+   - name: install dependencies
+       . . . < Code Hidden > . . .
+   
+   - name: install MySQL database
+       . . . < Code Hidden > . . .
+  
+    - name: start MySQL service
+       . . . < Code Hidden > . . .
+  
+    - name: install Python Flask dependencies
+       . . . < Code Hidden > . . .
+   
+   - name: run Web-Server
+       . . . < Code Hidden > . . .
+```
 
 
 
