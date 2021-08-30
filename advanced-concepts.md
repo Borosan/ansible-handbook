@@ -50,7 +50,7 @@ To enable Asynchronous mode within Ansible playbook we need to use few parameter
   become: true
 
   tasks:
-    - name: sleep for 60 seconds
+    - name: sleep for 15 seconds
       command: /bin/sleep 15
       async: 45 # the total time allowed to complete the sleep task
       poll: 5 # No need to poll just fire and forget the sleep command
@@ -82,7 +82,42 @@ To enable Asynchronous mode within Ansible playbook we need to use few parameter
       user: name=lisa state=present shell=/bin/bash
 ```
 
+### Ansible async\_status
 
+Ansible provides the option to get the task status in any time. Using ansible async\_status we can get the status of async task at any time.
+
+```text
+---
+# async and poll example3 playbook
+- name: sleep and create a user and check async-status
+  hosts: centos
+  become: true
+
+  tasks:
+    - name: sleep for 20 seconds
+      command: /bin/sleep 20
+      async: 30 # the total time allowed to complete the sleep task
+      poll: 0 # No need to poll just fire and forget the sleep command
+      register: sleeping_node
+
+    - name: task-2 to create a test user
+      user: name=lara state=present shell=/bin/bash
+      
+    - name: Checking the Job Status running in background
+      async_status:
+        jid: "{{ sleeping_node.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished # Retry within limit until the job status changed to "finished": 1
+      retries: 5 # Maximum number of retries to check job status
+```
+
+> execute the playbook with `-v` option so that we can see the Job ID of first task to check its status later.
+
+To check the status of first task on target  node\(s\):
+
+```text
+ansible  centos -m async_status -a "jid=WXYZ.WXYZ" 
+```
 
 
 
