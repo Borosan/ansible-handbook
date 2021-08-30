@@ -14,7 +14,7 @@ By default Ansible runs tasks synchronously, holding the connection to the remot
 
  This behavior can create challenges. For example, a task may take longer to complete than the SSH session allows for, causing a timeout. Or you may want a long-running process to execute in the background while you perform other tasks concurrently. Asynchronous mode lets you control how long-running tasks execute.
 
-#### What is Asynchronous mode? <a id="what-is-asynchronous-mode"></a>
+### What is Asynchronous mode?
 
 Asynchronous mode allows us to control the playbook execution flow by defining how long-running tasks completes their execution.
 
@@ -44,25 +44,45 @@ To enable Asynchronous mode within Ansible playbook we need to use few parameter
 
 ```text
 ---
-# async and poll example playbook
-- name: update packages and create a user 
+# async and poll example1 playbook
+- name: sleep and create a user 
   hosts: centos
   become: true
 
   tasks:
-    - name: task-1 update the system packages
-      yum: update_cache=yes name=* state=latest
-      async: 300 # the total time allowed to complete the package update task
-      poll: 10 # Polling Interval in Seconds
-      register: package_update
+    - name: sleep for 60 seconds
+      command: /bin/sleep 15
+      async: 45 # the total time allowed to complete the sleep task
+      poll: 5 # No need to poll just fire and forget the sleep command
+      register: sleeping_node
 
     - name: task-2 to create a test user
-      user: name=sara state=present shell=/bin/bash
+      user: name=mona state=present shell=/bin/bash
 ```
 
 #### Run tasks concurrently: poll = 0
 
  If you want to run multiple tasks in a playbook concurrently, use `async` with `poll` set to 0. When you set `poll: 0`, Ansible starts the task and immediately **moves on to the next task without waiting for a result**. Each async task runs until it either completes, fails or times out \(runs longer than its `async` value\). The playbook run ends without checking back on async tasks.
+
+```text
+---
+# async and poll example2 playbook
+- name: sleep and create a user 
+  hosts: centos
+  become: true
+
+  tasks:
+    - name: sleep for 60 seconds
+      command: /bin/sleep 60
+      async: 80 # the total time allowed to complete the sleep task
+      poll: 0 # No need to poll just fire and forget the sleep command
+      register: sleeping_node
+
+    - name: task-2 to create a test user
+      user: name=lisa state=present shell=/bin/bash
+```
+
+
 
 
 
