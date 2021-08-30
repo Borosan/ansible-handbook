@@ -188,6 +188,14 @@ By default, plays run with a `linear` strategy, in which all hosts will run each
 
 ![](.gitbook/assets/adv-strategylinier.jpg)
 
+### free strategy
+
+In this case, each server run all of its tasks independent of the other servers, and does not wait for the task to finish on the other servers. So each server can go right to the end as fast as it can and a host that is slow or stuck on a specific task won’t hold up the rest of the hosts and tasks.
+
+![](.gitbook/assets/adv-strategyfree.jpg)
+
+### BATCH strategy
+
 
 
 .
@@ -200,7 +208,7 @@ By default, plays run with a `linear` strategy, in which all hosts will run each
 
 [https://blog.learncodeonline.in/ansible-advanced-speed-up-playbook-run-with-async-and-polling](https://blog.learncodeonline.in/ansible-advanced-speed-up-playbook-run-with-async-and-polling)
 
-[https://www.decodingdevops.com/ansible-asynch-poll-with-examples/](https://www.decodingdevops.com/ansible-asynch-poll-with-examples/)
+[https://www.decodingdevops.com/ansible-asynch-poll-with-examples/](https://www.decodingdevops.com/ansible-asynch-poll-with-examples/)[https://docs.ansible.com/ansible/2.5/user\_guide/playbooks\_strategies.html](https://docs.ansible.com/ansible/2.5/user_guide/playbooks_strategies.html)[https://docs.ansible.com/ansible/latest/collections/ansible/builtin/free\_strategy.html\#free-strategy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/free_strategy.html#free-strategy)
 
 .
 
