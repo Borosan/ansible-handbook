@@ -271,6 +271,8 @@ _In playbook we do not have free strategy but there is a new option called_ **`s
        . . . < Code Hidden > . . .
 ```
 
+![](.gitbook/assets/adv-strategybatch.jpg)
+
 
 
 .
