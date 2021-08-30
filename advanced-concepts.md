@@ -116,10 +116,34 @@ Ansible provides the option to get the task status in any time. Using ansible as
 To check the status of first task on target  node\(s\):
 
 ```text
-ansible  centos -m async_status -a "jid=WXYZ.WXYZ" 
+ansible centos -m async_status -a "jid=903212800377.10413" 
 ```
 
 ### Asynchronous ad hoc tasks
+
+You can execute long-running operations in the background with ad hoc tasks. For example, to execute long\_running\_operation asynchronously in the background, with a timeout \(-B\) of 3600 seconds, and without polling \(-P\):
+
+```text
+ansible centos -B 3600 -P 0 -a "/usr/bin/long_running_operation --do-stuff"
+```
+
+Again  to check on the job status later, use the `async_status` module, passing it the job ID that was returned when you ran the original job in the background:
+
+```text
+ansible web1.example.com -m async_status -a "jid=488359678239.2844"
+```
+
+Ansible can also check on the status of your long-running job automatically with polling. In most cases, Ansible will keep the connection to your remote node open between polls. To run for 30 minutes and poll for status every 60 seconds:
+
+```text
+ansible all -B 1800 -P 60 -a "/usr/bin/long_running_operation --do-stuff"
+```
+
+> Poll mode is smart so all jobs will be started before polling begins on any machine. Be sure to use a high enough `--forks` value if you want to get all of your jobs started very quickly. After the time limit \(in seconds\) runs out \(`-B`\), the process on the remote nodes will be terminated.
+
+{% hint style="warning" %}
+Asynchronous mode is best suited to long-running shell commands or software upgrades. Running the copy module asynchronously, for example, does not do a background file transfer.
+{% endhint %}
 
 .
 
