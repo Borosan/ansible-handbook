@@ -119,7 +119,7 @@ To check the status of first task on target  node\(s\):
 ansible  centos -m async_status -a "jid=WXYZ.WXYZ" 
 ```
 
-
+### Asynchronous ad hoc tasks
 
 .
 
