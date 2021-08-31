@@ -323,7 +323,29 @@ However, you can change ansible default behaviour by adding  the **`any_errors_f
 
 ![](.gitbook/assets/adv-errhandfatal.jpg)
 
+ You can handle the errors at the task level as well like playbook  below\(you have seen that in previous sections\):
 
+```text
+---
+
+#sample playbook for conditionals  condition-playbook1.yaml
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: install apache2
+      apt: name=apache2 state=latest
+      ignore_errors: yes
+      register: results
+
+    - name: install httpd
+      yum: name=httpd state=latest
+      failed_when: "'FAILED' in results"
+```
+
+ **ignore\_errors: yes** =&gt; any error you can have at this task is ignored
+
+**failed\_when: "'FAILED' in results"** =&gt; Ansible consider that this task failed if in the result of the task you find the word 'FAILED'.
 
 That's all, good luck.
 
@@ -342,6 +364,8 @@ That's all, good luck.
 [https://blog.learncodeonline.in/ansible-advanced-speed-up-playbook-run-with-async-and-polling](https://blog.learncodeonline.in/ansible-advanced-speed-up-playbook-run-with-async-and-polling)
 
 [https://www.decodingdevops.com/ansible-asynch-poll-with-examples/](https://www.decodingdevops.com/ansible-asynch-poll-with-examples/)[https://docs.ansible.com/ansible/2.5/user\_guide/playbooks\_strategies.html](https://docs.ansible.com/ansible/2.5/user_guide/playbooks_strategies.html)[https://docs.ansible.com/ansible/latest/collections/ansible/builtin/free\_strategy.html\#free-strategy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/free_strategy.html#free-strategy)
+
+[https://www.learn-it-with-examples.com/development/continuous-integration-continuous-delivery/ansible/ansible-error-handling.html](https://www.learn-it-with-examples.com/development/continuous-integration-continuous-delivery/ansible/ansible-error-handling.html)
 
 .
 
