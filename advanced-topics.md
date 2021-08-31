@@ -221,7 +221,7 @@ In this case, each server run all of its tasks independent of the other servers,
 -
   name: Deploy Web Application
   strategy: free
-  hosts: server1
+  hosts: server1, server2, server3
   tasks:
    - name: install dependencies
        . . . < Code Hidden > . . .
@@ -253,7 +253,7 @@ _In playbook we do not have free strategy but there is a new option called_ **`s
 -
   name: Deploy Web Application
   serial: 3
-  hosts: server1
+  hosts: server1, server2, server3, server4, server5
   tasks:
    - name: install dependencies
        . . . < Code Hidden > . . .
@@ -285,7 +285,47 @@ The answer in no \(unless you specify explicitly\). Ansible uses parallel proces
 
 ```
 
-So we try to run our playbook on 1000 hosts, ansible  will only  run across 5 at a time. You can increase this value in configuration file but before that, make sure you have sufficient CPU resources and network bandwidth.That's all, good luck.
+So we try to run our playbook on 1000 hosts, ansible  will only  run across 5 at a time. You can increase this value in configuration file but before that, make sure you have sufficient CPU resources and network bandwidth.
+
+## Error Handling
+
+In Ansible, is common thing to run the same playbook on parallel on many target. Sometimes, on a particular target you can receive an error. In this case, by default, Ansible stops the execution on that target, but continues to run the playbook on the other targets. This is ansible default behavior:
+
+![](.gitbook/assets/adv-errhanddefault.jpg)
+
+However, you can change ansible default behaviour by adding  the **`any_errors_fatal: true`** line in the playbook.
+
+```text
+---
+#sample ansible playbook (error handling)
+-
+  name: Deploy Web Application
+  any_errors_fatal: true
+  hosts: server1, server2, server3
+  tasks:
+   - name: install dependencies
+       . . . < Code Hidden > . . .
+   
+   - name: install MySQL database
+       . . . < Code Hidden > . . .
+  
+    - name: start MySQL service
+       . . . < Code Hidden > . . .
+  
+    - name: install Python Flask dependencies
+       . . . < Code Hidden > . . .
+   
+   - name: run Web-Server
+       . . . < Code Hidden > . . .
+```
+
+ In this case, when an error occurs, Ansible stops the execution of the playbook on all the targets.
+
+![](.gitbook/assets/adv-errhandfatal.jpg)
+
+
+
+That's all, good luck.
 
 
 
