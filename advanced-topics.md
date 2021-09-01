@@ -347,6 +347,20 @@ However, you can change ansible default behaviour by adding  the **`any_errors_f
 
 **failed\_when: "'FAILED' in results"** =&gt; Ansible consider that this task failed if in the result of the task you find the word 'FAILED'.
 
+## Filters
+
+Ansible has a rich set of filters backed by jinja2 templating. We input some data into these templates and the jinja2 template engine process that data and provide the output accordingly. Filters mostly used for formatting or transforming the data. Then based on the output any other tasks are performed. Also, filtering is very useful in debugging. Filtering syntax is like the below:
+
+```text
+{{ <input>| <filter> }}
+```
+
+where the left side is the input to templating and the right side is the filter provided by ansible. The output can be printed on-screen or can be registered in a variable. Lets take a look at some examples:
+
+
+
+
+
 That's all, good luck.
 
 
@@ -366,6 +380,8 @@ That's all, good luck.
 [https://www.decodingdevops.com/ansible-asynch-poll-with-examples/](https://www.decodingdevops.com/ansible-asynch-poll-with-examples/)[https://docs.ansible.com/ansible/2.5/user\_guide/playbooks\_strategies.html](https://docs.ansible.com/ansible/2.5/user_guide/playbooks_strategies.html)[https://docs.ansible.com/ansible/latest/collections/ansible/builtin/free\_strategy.html\#free-strategy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/free_strategy.html#free-strategy)
 
 [https://www.learn-it-with-examples.com/development/continuous-integration-continuous-delivery/ansible/ansible-error-handling.html](https://www.learn-it-with-examples.com/development/continuous-integration-continuous-delivery/ansible/ansible-error-handling.html)
+
+[https://www.educba.com/ansible-filters/](https://www.educba.com/ansible-filters/)
 
 .
 
