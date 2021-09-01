@@ -347,7 +347,7 @@ However, you can change ansible default behaviour by adding  the **`any_errors_f
 
 **failed\_when: "'FAILED' in results"** =&gt; Ansible consider that this task failed if in the result of the task you find the word 'FAILED'.
 
-## Filters
+## Filters 
 
 Ansible has a rich set of filters backed by jinja2 templating. We input some data into these templates and the jinja2 template engine process that data and provide the output accordingly. Filters mostly used for formatting or transforming the data. Then based on the output any other tasks are performed. Also, filtering is very useful in debugging. Filtering syntax is like the below:
 
@@ -393,6 +393,12 @@ The list of filters that are provided by Ansible can be checked from the ****[ht
 {% endhint %}
 
 Templates when used with debug modules, add more verbosity and troubleshooting information to the output of a playbook. We have seen these kinds of scenarios in previous sections.
+
+## Lookups
+
+Lookup plugins are an Ansible-specific extension to the Jinja2 templating language. Like all templating,  lookup plugins are evaluated on the Ansible control machine. You can use lookup plugins to  retrieve data from outside sources \(files, databases, key/value stores, APIs, and other services\) within your playbooks.
+
+![](.gitbook/assets/adv-lookups.jpg)
 
 That's all, good luck.
 
