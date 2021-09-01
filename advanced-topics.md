@@ -357,9 +357,42 @@ Ansible has a rich set of filters backed by jinja2 templating. We input some dat
 
 where the left side is the input to templating and the right side is the filter provided by ansible. The output can be printed on-screen or can be registered in a variable. Lets take a look at some examples:
 
+```text
+### STRING MANIPULATION
+The name is {{ my_name }} => The name is Payam
+The name is {{ my_name | upper }} => The name is PAYAM
+The name is {{ my_name | lower }} => The name is payam
+The name is {{ my_name | title }} => The name is Payam
+The name is {{ my_name | replace ("Payam","Boros") }} => The name is Boros 
+The name is {{ my_name | default ("Mr") }} {{ my_name }} => The name is Mr Payam 
 
+### LIST AND SET
+{{ [1,2,3] | min }} => 1
+{{ [1,2,3] | max  }} => 3
+{{ [1,2,3,2] | unique }} => 1,2,3
+{{ [1,2,3,4] | union ([4,5]) }} => 1,2,3,5
+{{ [1,2,3,4] | intersec([4,5]) }} => 4
+{{ 100 | random  }} => randome number 0-100
+{{ ["The","name","is","Payam"] | join (" ") }} => The name is Payam
 
+### FILES
+{{ "etc/hosts" | basename }} => hosts
+{{ "c:\windows\hosts | win_basename }} => hosts
+{{ "c:\windows\hosts | win_splitdriver }} =>["c:","\windows\hosts"]
+{{ "c:\windows\hosts | win_splitdriver | first }} =>"c:"
+{{ "c:\windows\hosts | win_splitdriver | last }} =>"\windows\hosts"
 
+```
+
+{% hint style="info" %}
+**Additional Filters**
+
+The list of built-in filters shipped by jinja2 can be checked from the [https://jinja.pocoo.org/docs/templates/\#builtin-filters](https://jinja.palletsprojects.com/en/2.11.x/templates/), which is an official link for jinja2 template designer documentation.
+
+The list of filters that are provided by Ansible can be checked from the ****[https://docs.ansible.com/ansible/latest/user\_guide/playbooks\_filters.html](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html), which is an official documentation link for Ansible playbook filters.
+{% endhint %}
+
+Templates when used with debug modules, add more verbosity and troubleshooting information to the output of a playbook. We have seen these kinds of scenarios in previous sections.
 
 That's all, good luck.
 
