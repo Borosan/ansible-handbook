@@ -422,6 +422,10 @@ That's all, good luck.
 
 [https://www.educba.com/ansible-filters/](https://www.educba.com/ansible-filters/)
 
+[https://docs.ansible.com/ansible/latest/plugins/lookup.html](https://docs.ansible.com/ansible/latest/plugins/lookup.html)[https://docs.ansible.com/ansible/latest/user\_guide/playbooks\_lookups.html](https://docs.ansible.com/ansible/latest/user_guide/playbooks_lookups.html)
+
+[https://docs.ansible.com/ansible/2.4/playbooks\_lookups.html\#id3](https://docs.ansible.com/ansible/2.4/playbooks_lookups.html#id3)
+
 .
 
 
