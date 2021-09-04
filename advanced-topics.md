@@ -282,7 +282,8 @@ fork defines how many server ansible can talk to at a time. Imagine in previous 
 The answer in no \(unless you specify explicitly\). Ansible uses parallel processes or forks to communicate with remote hosts. The default value is 5 and it is defined in ansible configuration file **`ansible.cfg`** :
 
 ```text
-
+[root@controller ~]# grep fork /etc/ansible/ansible.cfg
+#forks          = 5
 ```
 
 So we try to run our playbook on 1000 hosts, ansible  will only  run across 5 at a time. You can increase this value in configuration file but before that, make sure you have sufficient CPU resources and network bandwidth.
