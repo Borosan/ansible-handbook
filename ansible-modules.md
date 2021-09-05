@@ -250,6 +250,8 @@ This module allows for addition or deletion of services and ports \(either TCP o
          state: enabled     
 ```
 
+Run **`ansible-doc <module-name>`** to get more information about any module you would like. 
+
 .
 
 .
