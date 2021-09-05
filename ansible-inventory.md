@@ -265,7 +265,17 @@ centos
 
  this way we won't need to specify inventory file while running a command. 
 
+{% hint style="success" %}
+### Dynamic inventories
 
+Most infrastructure can be managed with a custom inventory file, but there are many situations where more control is needed. Ansible will accept any kind of executable file as an inventory file, as long as you can pass it to Ansible as JSON.
+
+You could create an executable binary, a script, or anything else that can be run and will output JSON to stdout, and Ansible will call it with the argument `--list` when you run, as an example, `ansible all -i my-inventory-script -m ping`.
+
+ You can always check ansible github web page \([https://github.com/ansible/ansible/tree/devel/examples](https://github.com/ansible/ansible/tree/devel/examples)\) and other sources for examples, but  that's more advanced topic.
+{% endhint %}
+
+that's all.
 
 .
 
@@ -278,6 +288,8 @@ centos
 [https://linuxhint.com/ansible-tutorial-beginners/](https://linuxhint.com/ansible-tutorial-beginners/)
 
 [https://allandenot.com/devops/2015/01/16/ansible-with-multiple-inventory-files.html\#:~:text=TL%3BDR%3A%20Inventory%20can%20be,scripts%20like%20ec2.py\).](https://allandenot.com/devops/2015/01/16/ansible-with-multiple-inventory-files.html#:~:text=TL%3BDR%3A%20Inventory%20can%20be,scripts%20like%20ec2.py%29.)
+
+[https://www.jeffgeerling.com/blog/creating-custom-dynamic-inventories-ansible](https://www.jeffgeerling.com/blog/creating-custom-dynamic-inventories-ansible)
 
 .
 

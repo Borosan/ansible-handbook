@@ -250,7 +250,15 @@ This module allows for addition or deletion of services and ports \(either TCP o
          state: enabled     
 ```
 
-Run **`ansible-doc <module-name>`** to get more information about any module you would like. 
+Run **`ansible-doc <module-name>`** to get more information about any module you would like, it also gives you some examples!
+
+{% hint style="success" %}
+### Custom Modules
+
+Ansible modules are in fact python programs which are located on **`/usr/lib/pythonX.Y/dist-packages/ansible/modules`**. You can write down any custom program in python langiage and place it there and use it. Check ansible github web page for default modules \([https://github.com/ansible/ansible/tree/devel/lib/ansible/modules](https://github.com/ansible/ansible/tree/devel/lib/ansible/modules)\) but that's more advanced topic.
+{% endhint %}
+
+that's all.
 
 .
 
