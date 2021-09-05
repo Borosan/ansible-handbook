@@ -401,9 +401,26 @@ Lookup plugins are an Ansible-specific extension to the Jinja2 templating langua
 
 ![](.gitbook/assets/adv-lookups.jpg)
 
+## Ansible Plugins
+
+Large portion of Ansible’s functionality comes from the Ansible plugin system. These important pieces of code augment Ansible’s core functionality such as parsing and loading inventory and Playbooks, running Playbooks and reading the results. Essentially, Ansible uses plugins to extend what the system is doing under the hood.
+
+The following types of plugins are available:
+
+* **Action plugins** are front ends to modules and can execute actions on the controller before calling the modules themselves.
+* **Cache plugins** are used to keep a cache of ‘facts’ to avoid costly fact-gathering operations.
+* **Callback plugins** enable you to hook into Ansible events for display or logging purposes.
+* **Connection plugins** define how to communicate with inventory hosts.
+* **Filters plugins** allow you to manipulate data inside Ansible plays and/or templates. This is a Jinja2 feature; Ansible ships extra filter plugins.
+* **Lookup plugins** are used to pull data from an external source. These are implemented using a custom Jinja2 function.
+* **Strategy plugins** control the flow of a play and execution logic.
+* **Shell plugins** deal with low-level commands and formatting for the different shells Ansible can encounter on remote hosts.
+* **Test plugins** allow you to validate data inside Ansible plays and/or templates. This is a Jinja2 feature; Ansible ships extra test plugins.
+* **Vars plugins** inject additional variable data into Ansible runs that did not come from an inventory, playbook, or the command line.
+
+Visit ansible github page \([https://github.com/ansible/ansible/tree/devel/lib/ansible/plugins](https://github.com/ansible/ansible/tree/devel/lib/ansible/plugins)\) for more information. You can write your own too, but that is more advanced topic!
+
 That's all, good luck.
-
-
 
 ![thank you my wife \(T.M\)](.gitbook/assets/covid19-survivor.jpg)
 
@@ -426,6 +443,8 @@ That's all, good luck.
 [https://docs.ansible.com/ansible/latest/plugins/lookup.html](https://docs.ansible.com/ansible/latest/plugins/lookup.html)[https://docs.ansible.com/ansible/latest/user\_guide/playbooks\_lookups.html](https://docs.ansible.com/ansible/latest/user_guide/playbooks_lookups.html)
 
 [https://docs.ansible.com/ansible/2.4/playbooks\_lookups.html\#id3](https://docs.ansible.com/ansible/2.4/playbooks_lookups.html#id3)
+
+[https://www.devopsschool.com/blog/what-is-ansible-plugins-and-how-to-extend-ansible-through-plugins/](https://www.devopsschool.com/blog/what-is-ansible-plugins-and-how-to-extend-ansible-through-plugins/)
 
 .
 
