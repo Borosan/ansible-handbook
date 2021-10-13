@@ -17,7 +17,7 @@ Ansible Vault performs various operations. Specifically, it can
 
  Use`ansible-vault create` command to create the encrypted file.
 
-```text
+```
 [user1@controller demo-vault]$ ansible-vault create secret-playbook.yaml
 New Vault password:
 Confirm New Vault password:
@@ -25,7 +25,7 @@ Confirm New Vault password:
 
 After typing this command, it will ask for a password, this password is for vault password and will be used later.
 
-```text
+```
 ---
 #sample playbook to test vault secret-playbook.yaml
 
@@ -43,7 +43,7 @@ After typing this command, it will ask for a password, this password is for vaul
 
 Lets check that the file has been encrypted, using `cat` command:
 
-```text
+```
 [user1@controller demo-vault]$ cat secret-playbook.yaml
 $ANSIBLE_VAULT;1.1;AES256
 36653530663931656132366133626365386535333264636262343036666333613439623866643138
@@ -66,13 +66,13 @@ $ANSIBLE_VAULT;1.1;AES256
 
  The `ansible-vault decrypt` command is used to decrypt the encrypted file
 
-```text
+```
 [user1@controller demo-vault]$ ansible-vault decrypt secret-playbook.yaml
 Vault password:
 Decryption successful
 ```
 
-```text
+```
 [user1@controller demo-vault]$ cat secret-playbook.yaml
 ---
 #sample playbook to test vault secret-playbook.yaml
@@ -91,7 +91,7 @@ Decryption successful
 
 If you want to encrypt an already existing file which is unencrypted use `ansible-vault encrypt` command:
 
-```text
+```
 [user1@controller demo-vault]$ ansible-vault encrypt secret-playbook.yaml
 New Vault password:
 Confirm New Vault password:
@@ -102,14 +102,14 @@ _check the result using `cat secret-playbook.yaml` command._
 
 ### Decrypt a running playbook
 
-```text
+```
 [user1@controller demo-vault]$ ansible-playbook secret-playbook.yaml
 ERROR! Attempting to decrypt but no vault secrets found
 ```
 
- Prior to Ansible 2.4, decrypting files during run time required the use of the **`--ask-vault-pass`** ``parameter as shown with either **`ansible`** or **`ansible-playbook`** commands:
+ Prior to Ansible 2.4, decrypting files during run time required the use of the** `--ask-vault-pass`**` `parameter as shown with either **`ansible`** or **`ansible-playbook`** commands:
 
-```text
+```
 [user1@controller demo-vault]$ vim /etc/resolv.conf
 [user1@controller demo-vault]$ ansible-playbook secret-playbook.yaml --ask-vault-pass
 Vault password:
@@ -128,7 +128,7 @@ localhost                  : ok=2    changed=1    unreachable=0    failed=0    s
 
 However, that has been deprecated. Since Ansible 2.4 the standard method of prompting for a password is to utilize the **`--vault-id`** option as shown
 
-```text
+```
 [user1@controller demo-vault]$ ansible-playbook secret-playbook.yaml --vault-id @prompt
 Vault password (default):
 
@@ -148,14 +148,14 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0    s
 
 A simple trick to avoid being prompted for a password every time you are decrypting files during runtime is to store the vault password in a file.
 
-```text
+```
 [user1@controller demo-vault]$ cat password.txt
 P@ssw0rd
 ```
 
 Prior to Ansible 2.4 the way to achieve this was the use of the **–vault-password-file** parameter to specify the path to the file that contains the stored password.
 
-```text
+```
 [user1@controller demo-vault]$ ansible-playbook secret-playbook.yaml --vault-password-file password.txt
 
 PLAY [localhost] ************************************************************************************************************************
@@ -170,9 +170,9 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
- However, just like the **`--ask-vault-pass`** option, the option **`--vault-password-file`** has been deprecated to pave the way for the ``**`--vault-id`** option.
+ However, just like the **`--ask-vault-pass`** option, the option **`--vault-password-file`** has been deprecated to pave the way for the` `**`--vault-id`** option.
 
-```text
+```
 [user1@controller demo-vault]$ ansible-playbook secret-playbook.yaml --vault-id password.txt
 
 PLAY [localhost] ************************************************************************************************************************
@@ -200,7 +200,7 @@ It is not recommended to store passwords in plain text because if anybody gets a
 
  To encrypt a variable, use the **`encrypt_string`** option **:**
 
-```text
+```
 [user1@controller demo-vault]$ ansible-vault encrypt_string 'Srv@123?' --name 'ansible_sudo_pass'
 New Vault password:
 Confirm New Vault password:
@@ -214,9 +214,9 @@ ansible_sudo_pass: !vault |
 Encryption successful
 ```
 
- The output above indicates that the password has been encrypted with **AES 256 encryption**. From here, copy the entire encrypted code from !vault \| . Head out to the playbook file and delete the plaintext password value and paste the encrypted value as shown.
+ The output above indicates that the password has been encrypted with **AES 256 encryption**. From here, copy the entire encrypted code from !vault | . Head out to the playbook file and delete the plaintext password value and paste the encrypted value as shown.
 
-```text
+```
 ---
 #sample playbook to test vault unenc-playbook.yaml
 
@@ -240,9 +240,9 @@ Encryption successful
        var: ansible_sudo_pass
 ```
 
- Save and exit the file. Now run the playbook and verify whether it will still display the value of the password stored in the **my\_secret** variable.
+ Save and exit the file. Now run the playbook and verify whether it will still display the value of the password stored in the **my_secret** variable.
 
-```text
+```
 [user1@controller demo-vault]$ ansible-playbook unenc-playbook.yaml --ask-vault-pass
 Vault password:
 
@@ -268,9 +268,9 @@ _The output above shows that we succeeded in encrypting the variable._
 
 ### **View an Encrypted File**
 
-To have a peek at an encrypted file, use ****`ansible-vault view` ****command:
+To have a peek at an encrypted file, use** **`ansible-vault view`** **command:
 
-```text
+```
 [user1@controller demo-vault]$ ansible-vault view secret-playbook.yaml
 Vault password:
 ---
@@ -290,16 +290,16 @@ Vault password:
 
  If the file is encrypted and changes are required, use the `edit` command.
 
-```text
+```
 [user1@controller demo-vault]$ ansible-vault edit secret-playbook.yaml
 Vault password:
 ```
 
 ### **Reset Ansible vault Password**
 
- Also, we can reset or change the Vault’s password. This is done using the **`rekey`** option:
+ Also, we can reset or change the Vault’s password. This is done using the **`rekey` **option:
 
-```text
+```
 [user1@controller demo-vault]$ ansible-vault rekey secret-playbook.yaml
 Vault password:
 New Vault password:
@@ -322,4 +322,3 @@ and it is done.
 [https://www.linuxtechi.com/use-ansible-vault-secure-sensitive-data/](https://www.linuxtechi.com/use-ansible-vault-secure-sensitive-data/)
 
 .
-

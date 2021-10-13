@@ -4,19 +4,19 @@
 
  Ansible Galaxy is a galaxy website where users can share roles and to a command-line tool for **installing, creating,** and **managing** roles.
 
-![](.gitbook/assets/galaxy-website.jpg)
+![](.gitbook/assets/galaxy-website.JPG)
 
 Ansible Galaxy gives greater visibility to one of Ansible's most exciting features, such as application installation or reusable roles for server configuration. Lots of people share roles in the Ansible Galaxy.
 
- To work with  Ansible Galaxy, you need to use the **ansible-galaxy** command and its templates. Roles must be downloaded before they used in the playbooks. They are placed into the default directory that is **/etc/ansible/roles,** also depends on your version, they might placed in your **current user** home directory.
+ To work with  Ansible Galaxy, you need to use the **ansible-galaxy** command and its templates. Roles must be downloaded before they used in the playbooks. They are placed into the default directory that is** /etc/ansible/roles, **also depends on your version, they might placed in your **current user** home directory.
 
 {% hint style="info" %}
-If roles are stored in **/etc/ansible/roles** you have to have sudo access.
+If roles are stored in** /etc/ansible/roles** you have to have sudo access.
 {% endhint %}
 
 Currently we don't have any roles in default place:
 
-```text
+```
 [user1@controller demo-galaxy]$ ls /etc/ansible/roles/
 ```
 
@@ -24,7 +24,7 @@ Currently we don't have any roles in default place:
 
 `ansible-galaxy search` searches for roles on the Ansible Galaxy server. Lets search for apache for example:
 
-```text
+```
 [user1@controller demo-galaxy]$ ansible-galaxy search apache
 
 Found 3237 roles matching your search. Showing first 1000.
@@ -47,9 +47,9 @@ Found 3237 roles matching your search. Showing first 1000.
 
 ### Download from Galaxy
 
- Use the `ansible-galaxy install` command to download roles from the [Galaxy server](https://galaxy.ansible.com/)
+ Use the `ansible-galaxy install` command to download roles from the [Galaxy server](https://galaxy.ansible.com)
 
-```text
+```
 [user1@controller demo-galaxy]$ ansible-galaxy install geerlingguy.apache geerlingguy.mysql
 - downloading role 'apache', owned by geerlingguy
 - downloading role from https://github.com/geerlingguy/ansible-role-apache/archive/3.1.4.tar.gz
@@ -63,7 +63,7 @@ Found 3237 roles matching your search. Showing first 1000.
 
 Lets take look at what it has downloaded:
 
-```text
+```
 [user1@controller demo-galaxy]$
 [user1@controller demo-galaxy]$ ls /home/user1/.ansible/roles/
 geerlingguy.apache  geerlingguy.mysql
@@ -80,7 +80,7 @@ defaults  handlers  LICENSE  meta  molecule  README.md  tasks  templates  vars
 
 For using  downloaded role, we have to create a simple playbook:
 
-```text
+```
 ---
 #Sample playbook for galaxy and roles galaxy-playbook.yaml
 
@@ -94,7 +94,7 @@ For using  downloaded role, we have to create a simple playbook:
 
 and like always run it:
 
-```text
+```
 [user1@controller demo-galaxy]$ ansible-playbook galaxy-playbook.yaml
 
 PLAY [all] *************************************************************************************************************************************
@@ -431,6 +431,4 @@ To upload a role to ansibel galaxy, first you have to upload it to your github p
 [https://galaxy.ansible.com/docs/using/installing.html](https://galaxy.ansible.com/docs/using/installing.html)
 
 .
-
-
 

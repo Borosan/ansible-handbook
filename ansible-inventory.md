@@ -8,7 +8,7 @@ Ansible reads information about which machines you want to manage from your inve
 
  The default location for inventory is a file called `/etc/ansible/hosts:`
 
-```text
+```
 [root@control1 ~]# cat /etc/ansible/hosts
 # This is the default ansible 'hosts' file.
 #
@@ -60,9 +60,9 @@ If you don't create inventory file, Ansible uses this default inventory file.
 
 ### Sample Inventory files
 
-The inventory file is an **ini** like format.It is simply a number of servers, listed one after other:
+The inventory file is an** ini **like format.It is simply a number of servers, listed one after other:
 
-```text
+```
 #Sample Inventory File
 server1.company.com
 192.168.10.2
@@ -70,7 +70,7 @@ server1.company.com
 
 you can also group different servers together by define it like this:
 
-```text
+```
 #Grouping servers
 server1.company.com
 192.16.10.2
@@ -86,7 +86,7 @@ server6.company.com
 
 You can also have a group of groups:
 
-```text
+```
 #Group of groups:
 server1.company.com
 192.168.10.2
@@ -104,16 +104,16 @@ mail
 db
 ```
 
-in this sample we have created a group called _all\_servers_.  Some other examples:
+in this sample we have created a group called _all_servers_.  Some other examples:
 
-| Example | Description |
-| :--- | :--- |
-| web\[1-3\].example.com | If you have a lot of hosts with a similar pattern |
+| Example                      | Description                                          |
+| ---------------------------- | ---------------------------------------------------- |
+| web\[1-3].example.com        | If you have a lot of hosts with a similar pattern    |
 | server1.example.com**:5555** | If you have hosts that run on non-standard SSH ports |
 
 Also If you like to refer to these servers in Ansible using an alias, it is possible:
 
-```text
+```
 #Using alias
 web1  ansible_host=server1.company.com
 db1   ansible_host=server2.company.com
@@ -125,17 +125,17 @@ web2  ansible_host=server4.company.com
 
 ### Inventory Parameters
 
-Here, lets take a look at most useful Ansible Inventory parameters ****and examples:
+Here, lets take a look at most useful Ansible Inventory parameters** **and examples:
 
-| Example | Description |
-| :--- | :--- |
-| **ansible\_host=**1.2.3.4 | name of the host to connect to, if different from the alias you wich to give to it |
-| **ansible\_port=**5555 | which port to connect to \(default 22/tcp\) |
-| **ansible\_connection=**ssh | defines how ansible get connected to the target\[shh / winrm / localhost  \] |
-| **ansible\_user=**Linda | defines the user used to make remote connection, if no user is specified current user will be used |
-| **ansible\_ssh\_pass=**\*\*\* | define ssh password for linux |
+| Example                     | Description                                                                                        |
+| --------------------------- | -------------------------------------------------------------------------------------------------- |
+| **ansible_host=**1.2.3.4    | name of the host to connect to, if different from the alias you wich to give to it                 |
+| **ansible_port=**5555       | which port to connect to (default 22/tcp)                                                          |
+| **ansible_connection=**ssh  | defines how ansible get connected to the target\[shh / winrm / localhost  ]                        |
+| **ansible_user=**Linda      | defines the user used to make remote connection, if no user is specified current user will be used |
+| **ansible_ssh_pass=**\*\*\* | define ssh password for linux                                                                      |
 
-```text
+```
 #Sample Inventory parameters
 web1  ansible_host=server1.company.com ansible_connection=ssh   ansible_user=root
 db1   ansible_host=server2.company.com ansible_connection=winrm ansible_user=admin
@@ -155,7 +155,7 @@ In production environment using password to establish connectivity between syste
 
 Lets make a test project with a custom inventory file. 
 
-```text
+```
 [user1@controller ~]$ mkdir demo-inventory
 [user1@controller ~]$ cd demo-inventory/
 [user1@controller demo-inventory]$ ll
@@ -167,7 +167,7 @@ ubuntu
 
 The list of machines in the inventory can be found out through the  `ansible --list-hosts all` command :
 
-```text
+```
 [user1@controller demo-inventory]$ ansible --list-hosts all -i inventory.txt
   hosts (1):
     ubuntu
@@ -175,9 +175,9 @@ The list of machines in the inventory can be found out through the  `ansible --l
 
  _We can specify a different inventory file at the command line using the `-i <path>` option._
 
- And now, First Ansible Task!  ****You can ping all of your inventory machines using the following command:
+ And now, First Ansible Task!**  **You can ping all of your inventory machines using the following command:
 
-```text
+```
 [user1@controller demo-inventory]$  ansible ubuntu -m ping -i inventory.txt
 ubuntu | SUCCESS => {
     "ansible_facts": {
@@ -190,7 +190,7 @@ ubuntu | SUCCESS => {
 
 so that confirms that our ansible controller can successfully communicate or connect to the target machines. lets update inventory.txt file by adding second target:
 
-```text
+```
 [user1@controller demo-inventory]$ cat inventory.txt
 ubuntu 
 centos 
@@ -198,7 +198,7 @@ centos
 
 and lets  see the results:
 
-```text
+```
 [user1@controller demo-inventory]$ ansible all  -m ping -i inventory.txt
 centos | SUCCESS => {
     "ansible_facts": {
@@ -216,11 +216,11 @@ ubuntu | SUCCESS => {
 }
 ```
 
-There is a group that Ansible creates by default and that's called the ``**`all`** group. The all group is a built-in group that Ansible creates and it has all the servers in our inventory file part of that group.
+There is a group that Ansible creates by default and that's called the` `**`all `**group. The all group is a built-in group that Ansible creates and it has all the servers in our inventory file part of that group.
 
-If there is a problem with python on one of your target nodes, you can send a raw module \(we will talk about it later\):
+If there is a problem with python on one of your target nodes, you can send a raw module (we will talk about it later):
 
-```text
+```
 [user1@controller demo-inventory]$ ansible -m raw -a "/usr/bin/uptime" -i inventory.txt all
 centos | CHANGED | rc=0 >>
  10:12:35 up 23:33,  2 users,  load average: 0.00, 0.01, 0.05
@@ -231,9 +231,9 @@ ubuntu | CHANGED | rc=0 >>
 Shared connection to ubuntu closed.
 ```
 
-And if you like to see which python version has been installed on remote machines use shell module\(we will talk about it later\):
+And if you like to see which python version has been installed on remote machines use shell module(we will talk about it later):
 
-```text
+```
 [user1@controller demo-inventory]$ ansible -m shell -a "python -V" -i inventory.txt all
 centos | CHANGED | rc=0 >>
 Python 2.7.5
@@ -248,11 +248,11 @@ ubuntu | CHANGED | rc=0 >>
 Python 2.7.17
 ```
 
-> Deprecation warnings can be disabled by setting deprecation\_warnings=False in ansible.cfg
+> Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg
 
 Now that you know about inventory files let put our targets nodes information on `/etc/ansible/hosts` :
 
-```text
+```
 [root@controller ~]# tail -n7 /etc/ansible/hosts
 
 ubuntu
@@ -272,7 +272,7 @@ Most infrastructure can be managed with a custom inventory file, but there are m
 
 You could create an executable binary, a script, or anything else that can be run and will output JSON to stdout, and Ansible will call it with the argument `--list` when you run, as an example, `ansible all -i my-inventory-script -m ping`.
 
- You can always check ansible github web page \([https://github.com/ansible/ansible/tree/devel/examples](https://github.com/ansible/ansible/tree/devel/examples)\) and other sources for examples, but  that's more advanced topic.
+ You can always check ansible github web page ([https://github.com/ansible/ansible/tree/devel/examples](https://github.com/ansible/ansible/tree/devel/examples)) and other sources for examples, but  that's more advanced topic.
 {% endhint %}
 
 that's all.
@@ -283,13 +283,12 @@ that's all.
 
 .
 
-[https://docs.ansible.com/ansible/2.7/user\_guide/intro\_inventory.html](https://docs.ansible.com/ansible/2.7/user_guide/intro_inventory.html)
+[https://docs.ansible.com/ansible/2.7/user_guide/intro_inventory.html](https://docs.ansible.com/ansible/2.7/user_guide/intro_inventory.html)
 
 [https://linuxhint.com/ansible-tutorial-beginners/](https://linuxhint.com/ansible-tutorial-beginners/)
 
-[https://allandenot.com/devops/2015/01/16/ansible-with-multiple-inventory-files.html\#:~:text=TL%3BDR%3A%20Inventory%20can%20be,scripts%20like%20ec2.py\).](https://allandenot.com/devops/2015/01/16/ansible-with-multiple-inventory-files.html#:~:text=TL%3BDR%3A%20Inventory%20can%20be,scripts%20like%20ec2.py%29.)
+[https://allandenot.com/devops/2015/01/16/ansible-with-multiple-inventory-files.html#:\~:text=TL%3BDR%3A%20Inventory%20can%20be,scripts%20like%20ec2.py).](https://allandenot.com/devops/2015/01/16/ansible-with-multiple-inventory-files.html#:\~:text=TL%3BDR%3A%20Inventory%20can%20be,scripts%20like%20ec2.py\).)
 
 [https://www.jeffgeerling.com/blog/creating-custom-dynamic-inventories-ansible](https://www.jeffgeerling.com/blog/creating-custom-dynamic-inventories-ansible)
 
 .
-
