@@ -6,7 +6,7 @@
 
 An Ansible Playbook can be as simple as running a series of commands on different server in sequence and restarting those servers in a particular order, or it could be as complex as deploying hundreds of VMs in a public and private cloud infrastructure!
 
-```
+```text
 ---
 
   - name: Simple Playbook
@@ -19,11 +19,11 @@ An Ansible Playbook can be as simple as running a series of commands on differen
 ```
 
 {% hint style="info" %}
-Ansible playbooks tend to be more of a configuration language than a programming language. Ansible playbook commands use** YAML** format. 
+Ansible playbooks tend to be more of a configuration language than a programming language. Ansible playbook commands use **YAML** format. 
 
-* **Playbook **-A single **YAML** file
-  * **Play **- Defines a set of activities (tasks) to be run on hosts
-    * **Task **- An action to be performed on the host. examples:
+* **Playbook** -A single **YAML** file
+  * **Play** - Defines a set of activities \(tasks\) to be run on hosts
+    * **Task** - An action to be performed on the host. examples:
       * Execute a command
       * Run a script
       * Install a package
@@ -34,7 +34,7 @@ Ansible playbooks tend to be more of a configuration language than a programming
 
 Here we have a simple ansible Playbook, which helps you to get the idea:
 
-```
+```text
 ---
 
 #Sample Ansible Playbook1.yml
@@ -65,9 +65,9 @@ Remember the host we want to perform these operations against is always set at a
 All connection information for the host is retrieved from the inventory file. There is no hard rule to use all the hosts defined in the inventory file. We can choose one or multiple or a group or multiple groups from the inventory file in the play.
 {% endhint %}
 
- We can also split the list of tasks into two separate plays (using our YAML skills):
+ We can also split the list of tasks into two separate plays \(using our YAML skills\):
 
-```
+```text
 ---
 
 #Sample Ansible Playbook2.yml
@@ -96,7 +96,7 @@ All connection information for the host is retrieved from the inventory file. Th
         state: started
 ```
 
-The` '-'` indicates that it is an item in the list. So the Playbook is a list of dictionaries. Each play is a dictionary and has a set of properties called **name**, **hosts **and **tasks **. Remember these are properties of a dictionary  and so the order doesn't really matter. So even if you swap the position of name and hosts, it's still a valid play. 
+The `'-'` indicates that it is an item in the list. So the Playbook is a list of dictionaries. Each play is a dictionary and has a set of properties called **name**, **hosts** and **tasks** . Remember these are properties of a dictionary  and so the order doesn't really matter. So even if you swap the position of name and hosts, it's still a valid play. 
 
 How ever this is not the same for tasks. The tasks is a list as denoted by the dashes. List are ordered collections, So the position of entries matter. Swapping the position of entries here, really matters.
 
@@ -105,31 +105,31 @@ The different actions run by tasks are called modules. In our example, command, 
 {% hint style="success" %}
 The YAML format is key while developing Playbooks. We must pay extra attention to the indentation and structure of this file. For testing yaml files:
 
-* web site: [http://www.yamllint.com/](http://www.yamllint.com)
-* ATOM ide with linter-js-yaml and remote-sync (if you need)
+* web site: [http://www.yamllint.com/](http://www.yamllint.com/)
+* ATOM ide with linter-js-yaml and remote-sync \(if you need\)
 {% endhint %}
 
 ###  Running Ansible
 
 There are Two ways of running Ansible:
 
-* **`ansible `**command (**ad-hoc commands**) : Used when we want to use ansible for One task, such as Testing connectivity between ansible controller and target, Shutting down a set of server, ... . In that case we can run ansible with out writing a playbook.
+* **`ansible`** command \(**ad-hoc commands**\) : Used when we want to use ansible for One task, such as Testing connectivity between ansible controller and target, Shutting down a set of server, ... . In that case we can run ansible with out writing a playbook.
 * **`ansible-playbook`** command : used when you have a playbook.
 
 ![](.gitbook/assets/playbook-runansible.jpg)
 
-| ansible (Imperative)                | ansible-playbook (Declarative)        |
-| ----------------------------------- | ------------------------------------- |
-| **ansible** \<host> -a \<command>   | **ansible-playbook** \<playbook name> |
-| **ansible** all -a '''/sbin/reboot' |                                       |
-| **ansible** \<host> -m \<module>    |                                       |
-| **ansible** target1 -m ping         |                                       |
+| ansible \(Imperative\) | ansible-playbook \(Declarative\) |
+| :--- | :--- |
+| **ansible** &lt;host&gt; -a &lt;command&gt; | **ansible-playbook** &lt;playbook name&gt; |
+| **ansible** all -a '''/sbin/reboot' |  |
+| **ansible** &lt;host&gt; -m &lt;module&gt; |  |
+| **ansible** target1 -m ping |  |
 
 ### Demo - Running Ansible 
 
 We have already talked about ad-hoc commands, so go back for more examples:
 
-```
+```text
 [user1@controller demo-playbook]$  ansible all -m ping
 centos | SUCCESS => {
     "ansible_facts": {
@@ -151,7 +151,7 @@ ubuntu | SUCCESS => {
 
 Lets do the same thing using  a playbook:
 
-```
+```text
 ---
 
 #ping-playbook.yaml
@@ -163,7 +163,7 @@ Lets do the same thing using  a playbook:
       ping:
 ```
 
-```
+```text
 [user1@controller demo-playbook]$ ansible-playbook ping-playbook.yaml
 
 PLAY [Test Connectivity] ****************************************************************************************************************
@@ -185,14 +185,14 @@ _We do not need to any hosts here, because we have specified the hosts inside th
 
 As second example lets create a new playbook using copy module, to copy some files to target systems. Always use ansible documentations it has good examples
 
-```
+```text
 ### Creating a test file
 [user1@controller demo-playbook]$ cat > /tmp/test-file.txt
 Sample Text File!!!
 ^C
 ```
 
-```
+```text
 ---
 
 # Sample copy playbook!
@@ -207,7 +207,7 @@ Sample Text File!!!
         dest: /tmp/test-file.txt
 ```
 
-```
+```text
 [user1@controller demo-playbook]$ ansible-playbook copy-playbook.yaml
 
 PLAY [Copy file to target server(s)] ****************************************************************************************************
@@ -225,9 +225,9 @@ centos                     : ok=2    changed=1    unreachable=0    failed=0    s
 ubuntu                     : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-If you check the target server(s) you would see the test-file is now there. 
+If you check the target server\(s\) you would see the test-file is now there. 
 
-```
+```text
 root@ubuntu:~# su - user1
 $ cat /tmp/test-file.txt
 Sample Text File!!!
@@ -236,7 +236,7 @@ $
 
 Know if we execute the playbook again what will happened?  Copy the files? Over write it? Or just leave it as it is because the file is over there?
 
-```
+```text
 [user1@controller demo-playbook]$ ansible-playbook copy-playbook.yaml
 
 PLAY [Copy file to target server(s)] ****************************************************************************************************
@@ -260,13 +260,13 @@ As we said Ansible is smart enough and detects that the file is over there and d
 **Idempotency:** In simple words, Ansible only makes a change if it has to, if it is already in the same state then it really doesn't make the change. So we can run the ansible playbook as many time as we want, it is only going to make a change when there is a need.
 {% endhint %}
 
- Use  `ansible-playbook` with** -v** or** --verbose **switches to get more information, use **-vv** or even** -vvv **for more information. **-vvvv**  enables connection debugging!
+ Use  `ansible-playbook` with **-v** or **--verbose** switches to get more information, use **-vv** or even **-vvv** for more information. **-vvvv**  enables connection debugging!
 
 ###  Privilege Escalation
 
 We have already get familiar with privilege escalation concept and why we need that. First lets run a sample playbook with out escalating privileges and see the results:
 
-```
+```text
 ---
 
 # Sample whoami-playbook.yaml
@@ -280,7 +280,7 @@ We have already get familiar with privilege escalation concept and why we need t
          shell: whoami >> /home/user1/results.txt
 ```
 
-```
+```text
 [user1@controller demo-playbook]$ ansible-playbook whoami-playbook.yaml
 
 PLAY [all] ******************************************************************************************************************************
@@ -304,7 +304,7 @@ ubuntu                     : ok=3    changed=2    unreachable=0    failed=0    s
 
 and the results:
 
-```
+```text
 ###on ubuntu :
 user1@ubuntu:~$ cat results.txt
 Linux ubuntu 5.4.0-42-generic #46~18.04.1-Ubuntu SMP Fri Jul 10 07:21:24 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
@@ -318,10 +318,10 @@ user1
 
 There are two different ways we can run this as root:
 
-* use** -b** switch while running playbook: `ansible-playbook -b <playbook.yaml>`
-* add a line **become: yes **or **become: true**  inside playbook. 
+* use **-b** switch while running playbook: `ansible-playbook -b <playbook.yaml>`
+* add a line **become: yes** or **become: true**  inside playbook. 
 
-```
+```text
 ---
 
 # Sample whoami-playbook.yaml
@@ -338,7 +338,7 @@ There are two different ways we can run this as root:
 
 Now run it again and check the results:
 
-```
+```text
 [user1@controller demo-playbook]$ ansible-playbook whoami-playbook.yaml
 
 PLAY [all] ******************************************************************************************************************************
@@ -360,7 +360,7 @@ centos                     : ok=3    changed=2    unreachable=0    failed=0    s
 ubuntu                     : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-```
+```text
 ### ubuntu
 user1@ubuntu:~$ cat results.txt
 Linux ubuntu 5.4.0-42-generic #46~18.04.1-Ubuntu SMP Fri Jul 10 07:21:24 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
@@ -372,7 +372,7 @@ Linux centos.example.com 3.10.0-1127.el7.x86_64 #1 SMP Tue Mar 31 23:36:51 UTC 2
 root
 ```
 
-use` `**`become_user`** the user name that we want to switch to like compare it with `sudo su - user `.
+use ``**`become_user`** the user name that we want to switch to like compare it with `sudo su - user` .
 
 ![](.gitbook/assets/playbook-becomedefault.jpg)
 
@@ -384,7 +384,7 @@ Sometimes you want a task to run only when a change is made on a machine. For ex
 
 As an example lets install vsftp , vsftp is the name of the package on both ubuntu and centos:
 
-```
+```text
 ---
 
 ### sample handler-playbook.yaml
@@ -409,7 +409,7 @@ As an example lets install vsftp , vsftp is the name of the package on both ubun
 
 As there is no apt on centos, **`ignore_error`** cause playbook continue running other tasks even if this task fails. So if there is an error keep going!
 
-```
+```text
 [user1@controller demo-playbook]$ ansible-playbook handler-playbook.yaml
 
 PLAY [all] ******************************************************************************************************************************
@@ -440,7 +440,7 @@ ubuntu                     : ok=4    changed=1    unreachable=0    failed=0    s
 
 and lets run it again!
 
-```
+```text
 [user1@controller demo-playbook]$ ansible-playbook handler-playbook.yaml
 
 PLAY [all] ******************************************************************************************************************************
@@ -464,7 +464,7 @@ centos                     : ok=3    changed=0    unreachable=0    failed=0    s
 ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-and this time no `RUNNING HANDLER [start vsftpd] `if you have noticed! Because there is no changes made.
+and this time no `RUNNING HANDLER [start vsftpd]` if you have noticed! Because there is no changes made.
 
 .
 
@@ -474,12 +474,13 @@ and this time no `RUNNING HANDLER [start vsftpd] `if you have noticed! Because t
 
 .
 
-[https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html)
+[https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy\_module.html](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html)
 
-[https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html](https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html)
+[https://docs.ansible.com/ansible/latest/user\_guide/playbooks\_handlers.html](https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html)
 
 [https://www.middlewareinventory.com/blog/ansible-playbook-example/](https://www.middlewareinventory.com/blog/ansible-playbook-example/)
 
 [https://www.middlewareinventory.com/blog/ansible-sudo-ansible-become-example/](https://www.middlewareinventory.com/blog/ansible-sudo-ansible-become-example/)
 
 .
+

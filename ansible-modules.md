@@ -17,7 +17,7 @@ These programs are written to be resource models of the desired state of the sys
 3. **Files :** Files module will help in working with files. For example, using an ACL module to set an acl information on files, use the archive and unarchive module to compress and unpack files, use find, line in file, and replace the module to modify the contents of an existing file.
 4. **Database :** Database module helps in working with databases such as mongodb, mysql, mssql, postgresql, proxysql and vertica to add or remove databases or modifying database configurations, etc.
 5. **Cloud :** The Cloud section has a vast collection of modules for different cloud providers like Amazon, Azure, Google, Docker, VMware, Digital Ocean, Openstack, and many more. There are number a of modules available of each of these that allow you to perform various tasks such as, creating and destroying instances, performing configuration changes, security, managing containers, clusters, and much more.
-6. **Windows :** Windows module helps you in the Windows environment. Some of them are, Win_copy to copy files, Win_command to execute a command, configuring a domain, configuring IIS, configuring registry, and lot more.
+6. **Windows :** Windows module helps you in the Windows environment. Some of them are, Win\_copy to copy files, Win\_command to execute a command, configuring a domain, configuring IIS, configuring registry, and lot more.
 
 A module provides a defined interface, accepts arguments, and returns information to Ansible by printing a JSON string to stdout before exiting. Lets take a look at command module for example.
 
@@ -25,16 +25,16 @@ A module provides a defined interface, accepts arguments, and returns informatio
 
 Command Modules  executes a command on a remote node, it is good to know that command module is a default module if no modules is specified.
 
-| **Parameter**          | Comments                                                                                                                 |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **chdir**              | cd into this directory before running the command                                                                        |
-| **creates**            | a filename or (since 2.0) glob pattern, when it already exists, this step **will not** be run                            |
-| **executable**         | change the shell used to execute the command. Should be an absolute path to the executable                               |
-| **free_form**          | the command module takes a free form command to run. There is no parameter actually named 'free form'. see the examples! |
-| **removes**            | a filename or (since 2.0) glob pattern, when it does not exist, this step **will not** be run.                           |
-| **warn **(added in1.8) | if command warnings are on in ansible.cfg, do not warn about this particular line if set to no/false.                    |
+| **Parameter** | Comments |
+| :--- | :--- |
+| **chdir** | cd into this directory before running the command |
+| **creates** | a filename or \(since 2.0\) glob pattern, when it already exists, this step **will not** be run |
+| **executable** | change the shell used to execute the command. Should be an absolute path to the executable |
+| **free\_form** | the command module takes a free form command to run. There is no parameter actually named 'free form'. see the examples! |
+| **removes** | a filename or \(since 2.0\) glob pattern, when it does not exist, this step **will not** be run. |
+| **warn** \(added in1.8\) | if command warnings are on in ansible.cfg, do not warn about this particular line if set to no/false. |
 
-```
+```text
 ---
 # Simple ansible playbook command-playbook.yml
 -
@@ -55,14 +55,14 @@ Command Modules  executes a command on a remote node, it is good to know that co
 ```
 
 {% hint style="warning" %}
-`free_form`indicates that this module takes a **free form** **command **to run. Like  `cat resolv.conf` or `mkdir /folder` in  above example. Not all modules support input like this, like copy module.
+`free_form`indicates that this module takes a **free form** **command** to run. Like  `cat resolv.conf` or `mkdir /folder` in  above example. Not all modules support input like this, like copy module.
 {% endhint %}
 
 ### script module
 
-Runs a local script on one or more remote node(s) after transferring it.
+Runs a local script on one or more remote node\(s\) after transferring it.
 
-```
+```text
 ---
 #Sample Ansible script-playbook.yml
 -
@@ -76,9 +76,9 @@ Runs a local script on one or more remote node(s) after transferring it.
 
 ### service module
 
-Used to manage services on a system, Start, Stop, Restart. The Service module ** does not have** a **free_form **input, which means we have to pass input in a key value pair format.
+Used to manage services on a system, Start, Stop, Restart. The Service module  **does not have** a **free\_form** input, which means we have to pass input in a key value pair format.
 
-```
+```text
 ---
 #Sample Ansible service-playbook1.yml
 -
@@ -95,7 +95,7 @@ Used to manage services on a system, Start, Stop, Restart. The Service module **
 
  also we  can write above playbook  it in a dictionary or map format like this:
 
-```
+```text
 ---
 #Sample Ansible service-playbook2.yml
 -
@@ -124,7 +124,7 @@ Majority of the modules in Ansible are idempotent and Ansible highly recommends 
 
 Lineinfile module is used to find a line in a file and replace it or add it if it doesn't already exist.
 
-```
+```text
 ---
 #Sample Ansible Playbook-lineinfile.yml
 -
@@ -186,7 +186,7 @@ This module is useful for sending emails from playbooks.
 
 Installs, upgrade, downgrades, removes, and lists packages and groups with the _yum_ package manager.
 
-```
+```text
 ---
 #Sample Ansible yum-playbook.yml
 -
@@ -219,9 +219,9 @@ Always check the ansible official documents for the latest changes.
 
 ### firewall module
 
-This module allows for addition or deletion of services and ports (either TCP or UDP) in either running or permanent firewalld rules.
+This module allows for addition or deletion of services and ports \(either TCP or UDP\) in either running or permanent firewalld rules.
 
-```
+```text
 ---
 #Sample Ansible Playbook-firewalld.yml
 -
@@ -250,12 +250,12 @@ This module allows for addition or deletion of services and ports (either TCP or
          state: enabled     
 ```
 
-Run**` ansible-doc <module-name>`** to get more information about any module you would like, it also gives you some examples!
+Run **`ansible-doc <module-name>`** to get more information about any module you would like, it also gives you some examples!
 
 {% hint style="success" %}
 ### Custom Modules
 
-Ansible modules are in fact python programs which are located on **`/usr/lib/pythonX.Y/dist-packages/ansible/modules`**. You can write down any custom program in python langiage and place it there and use it. Check ansible github web page for default modules ([https://github.com/ansible/ansible/tree/devel/lib/ansible/modules](https://github.com/ansible/ansible/tree/devel/lib/ansible/modules)) but that's more advanced topic.
+Ansible modules are in fact python programs which are located on **`/usr/lib/pythonX.Y/dist-packages/ansible/modules`**. You can write down any custom program in python langiage and place it there and use it. Check ansible github web page for default modules \([https://github.com/ansible/ansible/tree/devel/lib/ansible/modules](https://github.com/ansible/ansible/tree/devel/lib/ansible/modules)\) but that's more advanced topic.
 {% endhint %}
 
 that's all.
@@ -272,19 +272,21 @@ With the special thanks of mumshad mannambeth.
 
 [https://linuxbuz.com/linuxhowto/what-is-ansible-modules-and-how-to-use-it](https://linuxbuz.com/linuxhowto/what-is-ansible-modules-and-how-to-use-it)
 
-[https://docs.ansible.com/ansible/2.8/modules/command_module.html](https://docs.ansible.com/ansible/2.8/modules/command_module.html)
+[https://docs.ansible.com/ansible/2.8/modules/command\_module.html](https://docs.ansible.com/ansible/2.8/modules/command_module.html)
 
-[https://docs.ansible.com/ansible/2.4/script_module.html](https://docs.ansible.com/ansible/2.4/script_module.html)
+[https://docs.ansible.com/ansible/2.4/script\_module.html](https://docs.ansible.com/ansible/2.4/script_module.html)
 
-[https://docs.ansible.com/ansible/2.5/modules/service_module.html](https://docs.ansible.com/ansible/2.5/modules/service_module.html)
+[https://docs.ansible.com/ansible/2.5/modules/service\_module.html](https://docs.ansible.com/ansible/2.5/modules/service_module.html)
 
-[https://docs.ansible.com/ansible/2.5/modules/lineinfile_module.html](https://docs.ansible.com/ansible/2.5/modules/lineinfile_module.html)
+[https://docs.ansible.com/ansible/2.5/modules/lineinfile\_module.html](https://docs.ansible.com/ansible/2.5/modules/lineinfile_module.html)
 
-[https://docs.ansible.com/ansible/2.3/mail_module.html](https://docs.ansible.com/ansible/2.3/mail_module.html)
+[https://docs.ansible.com/ansible/2.3/mail\_module.html](https://docs.ansible.com/ansible/2.3/mail_module.html)
 
-[https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum_module.html](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum_module.html)
+[https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum\_module.html](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum_module.html)
 
-[https://docs.ansible.com/ansible/latest/collections/ansible/posix/firewalld_module.html](https://docs.ansible.com/ansible/latest/collections/ansible/posix/firewalld_module.html)
+[https://docs.ansible.com/ansible/latest/collections/ansible/posix/firewalld\_module.html](https://docs.ansible.com/ansible/latest/collections/ansible/posix/firewalld_module.html)
 
 .
+
+
 

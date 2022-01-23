@@ -10,12 +10,12 @@ Just like any other Scripting or programming language we can use variable in ans
 
 Variable names must start with a letter, and they can only contain letters, numbers, and underscores. The following table illustrates the difference between invalid and valid variable names.
 
-| INVALID VARIABLE NAMES | VALID VARIABLE NAMES             |
-| ---------------------- | -------------------------------- |
-| web server             | web_server                       |
-| remote.file            | remote_file                      |
-| 1st file               | file\_1, file1                   |
-| remoteserver$1         | remote_server\_1, remote_server1 |
+| INVALID VARIABLE NAMES | VALID VARIABLE NAMES |
+| :--- | :--- |
+| web server | web\_server |
+| remote.file | remote\_file |
+| 1st file | file\_1, file1 |
+| remoteserver$1 | remote\_server\_1, remote\_server1 |
 
 ### Defining Variables
 
@@ -29,12 +29,12 @@ If the same variable name is defined at more than one level, the level with the 
 
 **Host scope:** We have already seen using variables when we talked about Ansible inventory files. As as   example lets write down a playbook to configure multiple firewall configuration. We want to make it reusable for some one else to change ports, for that lets move variables to the inventory file:
 
-```
+```text
 #Sample inventory file with variables-inventory.txt
 centos http_port=8080 snmp_port=161-162 internal_ip_range=192.168.100.0
 ```
 
-```
+```text
 ---
 # sample firewall playbook  firewall-playbook.yaml
 
@@ -65,7 +65,7 @@ centos http_port=8080 snmp_port=161-162 internal_ip_range=192.168.100.0
          state: enabled
 ```
 
-```
+```text
 [user1@controller demo-var]$  ansible-playbook -i inventory.txt  firewall-playbook.yaml
 ```
 
@@ -76,7 +76,7 @@ centos http_port=8080 snmp_port=161-162 internal_ip_range=192.168.100.0
 
  Lets repeat previous example by  moving  variables in to the playbook ,It can be done with `vars` like this:
 
-```
+```text
 ---
 
 #sample firewall playbook with vars firewall-playbook.yaml
@@ -112,20 +112,20 @@ centos http_port=8080 snmp_port=161-162 internal_ip_range=192.168.100.0
          state: enabled
 ```
 
-```
+```text
 [user1@controller demo-var]$ ansible-playbook  firewall-playbook.yaml
 ```
 
-If you want to keep the variables in a separate file and import it with `vars_files`You have to first save the variables and values in the same format you have written in the playbook and the file can later be imported using vars_files like this:
+If you want to keep the variables in a separate file and import it with `vars_files`You have to first save the variables and values in the same format you have written in the playbook and the file can later be imported using vars\_files like this:
 
-```
+```text
 # vars.yaml
 http_port: 8080
 snmp_port: 161-162
 internal_ip_range: 192.168.100.0
 ```
 
-```
+```text
 ---
 
 #sample firewall playbook with var_files firewall-playbook.yaml
@@ -159,21 +159,21 @@ internal_ip_range: 192.168.100.0
          state: enabled
 ```
 
-```
+```text
 [user1@controller demo-var]$ ansible-playbook  firewall-playbook.yaml
 ```
 
 {% hint style="info" %}
-**Jinja2 templating :**  the format {{ }} we are using to use variables is called Jinja2 templating. Be careful about **Quotes **:
+**Jinja2 templating :**  the format {{ }} we are using to use variables is called Jinja2 templating. Be careful about **Quotes** :
 
-* ~~**source: {{ http_port }}**~~
-* **source: "{{ http_port }}"**
-* **source: " Somthing {{ http_port }} Somthing "**
+* ~~**source: {{ http\_port }}**~~
+* **source: "{{ http\_port }}"**
+* **source: " Somthing {{ http\_port }} Somthing "**
 {% endhint %}
 
 ### Ansible facts
 
- Ansible _facts_ are data gathered about target nodes and returned back to controller nodes. Ansible facts are stored in JSON format and are used to make important decisions about tasks based on their statistics. Facts are in an **ansible_facts** variable, which is managed by Ansible Engine. Ansible facts play a major role in syncing with hosts in accordance with _real-time data_.
+ Ansible _facts_ are data gathered about target nodes and returned back to controller nodes. Ansible facts are stored in JSON format and are used to make important decisions about tasks based on their statistics. Facts are in an **ansible\_facts** variable, which is managed by Ansible Engine. Ansible facts play a major role in syncing with hosts in accordance with _real-time data_.
 
 {% hint style="success" %}
 Normally, every play runs the setup module automatically before the first task in order to gather facts. This is reported as the Gathering Facts task in Ansible 2.3 and later, or simply as setup in older versions of Ansible. By default, you do not need to have a task to run setup in your play. It is normally run automatically for you.
@@ -197,9 +197,9 @@ Ansible facts use the `setup` module for gathering facts every time before runni
 
 #### **Using the Ansible ad-hoc commands**
 
-1\. Access Ansible facts using ad-hoc commands: **`ansible all -m setup` **The `setup` module fetches all the details from the remote hosts to our controller nodes and dumps them directly to our screen for the facts to be visible to users.
+1. Access Ansible facts using ad-hoc commands: **`ansible all -m setup`** The `setup` module fetches all the details from the remote hosts to our controller nodes and dumps them directly to our screen for the facts to be visible to users.
 
-```
+```text
 [user1@controller demo-var]$ ansible ubuntu -m setup
 ubuntu | SUCCESS => {
     "ansible_facts": {
@@ -248,9 +248,9 @@ ubuntu | SUCCESS => {
 }
 ```
 
-2\. Filtering out a specific value from Ansible facts: **`ansible all -m setup -a "filter=YourFilterHere"`**Here, the `setup` module is used to fetch the facts about the system, and further, it will use the **filter** argument to display the value from the Ansible facts. 
+2. Filtering out a specific value from Ansible facts: **`ansible all -m setup -a "filter=YourFilterHere"`**Here, the `setup` module is used to fetch the facts about the system, and further, it will use the **filter** argument to display the value from the Ansible facts. 
 
-```
+```text
 [user1@controller demo-var]$ ansible ubuntu -m setup -a "filter=*family*"
 ubuntu | SUCCESS => {
     "ansible_facts": {
@@ -265,14 +265,14 @@ ubuntu | SUCCESS => {
 
 To access the variables from Ansible facts in the Ansible playbook, we need to use the actual name without using the **ansible** keyword.
 
-* ansible_facts\["ansible_system"] ❌
-* ansible_facts\["system"] ✔️
+* ansible\_facts\["ansible\_system"\] ❌
+* ansible\_facts\["system"\] ✔️
 
  The `gather_facts` module from the Ansible playbook runs the `setup` module by default at the start of each playbook to gather the facts about remote hosts.
 
-3\. Accessing facts using Ansible playbook: Fetch the Ansible facts and display them using a playbook.
+3. Accessing facts using Ansible playbook: Fetch the Ansible facts and display them using a playbook.
 
-```
+```text
 ---
 
 #sample playbook for gathering facts facts-playbook.yaml
@@ -283,15 +283,15 @@ To access the variables from Ansible facts in the Ansible playbook, we need to u
        var: ansible_facts
 ```
 
-```
+```text
 [user1@controller demo-var]$  ansible-playbook facts-playbook.yaml
 ```
 
 _and it will gather and shows all facts!_
 
-4\. Accessing a specific fact using an Ansible playbook: Fetching the Ansible facts, filtering them, and displaying them using a playbook.
+4. Accessing a specific fact using an Ansible playbook: Fetching the Ansible facts, filtering them, and displaying them using a playbook.
 
-```
+```text
 ---
 
 #Sample playbook for Accessing specific fact fact-playbook.yaml
@@ -302,7 +302,7 @@ _and it will gather and shows all facts!_
       var: ansible_facts["cmdline"]
 ```
 
-```
+```text
 [user1@controller demo-var]$  ansible-playbook fact-playbook.yaml
 
 PLAY [all] ******************************************************************************************************************************
@@ -344,11 +344,11 @@ centos                     : ok=2    changed=0    unreachable=0    failed=0    s
 ubuntu                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-### **Debug Module **
+### **Debug Module** 
 
-** **When you are working with Ansible playbooks, it’s great to have some debug options. Ansible provides a debug module that makes this task easier. It is used to print the message in the log output. The message is nothing but any variable values or output of any task.
+ ****When you are working with Ansible playbooks, it’s great to have some debug options. Ansible provides a debug module that makes this task easier. It is used to print the message in the log output. The message is nothing but any variable values or output of any task.
 
-```
+```text
 ---
 
 #Sample playbook for debugging debug-playbook.yaml
@@ -361,7 +361,7 @@ ubuntu                     : ok=2    changed=0    unreachable=0    failed=0    s
       debug: msg="The variable first_var is set to - {{ first_var }}"
 ```
 
-```
+```text
 [user1@controller demo-var]$ ansible-playbook debug-playbook.yaml
 
 PLAY [centos] ***************************************************************************************************************************
@@ -386,7 +386,7 @@ The variables will contain the value returned by the task. The common return val
 
 > Each registered variables will be valid on the remote host where the task was run for the rest of the playbook execution.
 
-```
+```text
 ---
 
 #Sample playbook for registering vars  register-playbook.yaml
@@ -403,7 +403,7 @@ The variables will contain the value returned by the task. The common return val
       debug: msg={{ results }}
 ```
 
-```
+```text
 [user1@controller demo-var]$ ansible-playbook register-playbook.yaml
 
 PLAY [centos] ***************************************************************************************************************************
@@ -448,7 +448,7 @@ Some time we need to add a condition to each task and saying when we want the ta
 
 First lets make sure no apache or httpd is installed on both targets:
 
-```
+```text
 [user1@controller demo-var]$ ansible ubuntu -b -m apt -a "name=apache2 state=absent"
 ubuntu | SUCCESS => {
     "ansible_facts": {
@@ -485,7 +485,7 @@ Often in a playbook you want to execute or skip a task based on the outcome of a
 
  You create the name of the registered variable using the `register` keyword. A registered variable always contains the status of the task that created it as well as any output that task generated. You can use registered variables in conditional , also it is possible to  access the string contents of the registered variable :
 
-```
+```text
 ---
 
 #sample playbook for conditionals  condition-playbook1.yaml
@@ -505,7 +505,7 @@ Often in a playbook you want to execute or skip a task based on the outcome of a
 
 and run:
 
-```
+```text
 [user1@controller demo-var]$ ansible-playbook condition-playbook1.yaml
 
 PLAY [all] ******************************************************************************************************************************
@@ -529,7 +529,7 @@ centos                     : ok=3    changed=1    unreachable=0    failed=0    s
 ubuntu                     : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-### _ _Conditionals based on ansible_facts
+###  __Conditionals based on ansible\_facts
 
 Often you want to execute or skip a task based on facts. As we mentioned before Facts are attributes of individual hosts, including IP address, operating system, the status of a filesystem, and many more. With conditionals based on facts:
 
@@ -537,11 +537,11 @@ Often you want to execute or skip a task based on facts. As we mentioned before 
 * You can skip configuring a firewall on hosts with internal IP addresses.
 * You can perform cleanup tasks only when a filesystem is getting full.
 
-> Not all facts exist for all hosts. For example, the ‘lsb_major_release’ fact  only exists when the lsb_release package is installed on the target host.
+> Not all facts exist for all hosts. For example, the ‘lsb\_major\_release’ fact  only exists when the lsb\_release package is installed on the target host.
 
  In example below, we remove web server package from each server based on its os family:
 
-```
+```text
 ---
 #sample conditional with facts condition-playbook2.yaml
 
@@ -561,7 +561,7 @@ Often you want to execute or skip a task based on facts. As we mentioned before 
 
 and lets run it:
 
-```
+```text
 [user1@controller demo-var]$ ansible-playbook condition-playbook2.yaml
 
 PLAY [all] ******************************************************************************************************************************
@@ -587,7 +587,7 @@ ubuntu                     : ok=2    changed=1    unreachable=0    failed=0    s
 
 When automating server setup, sometimes you’ll need to repeat the execution of the same task using different values. For instance, you may need to install  multiple packages , or ... . 
 
-```
+```text
 ---
 
 #sample playbook install packages noloop-playbook.yaml
@@ -603,9 +603,9 @@ When automating server setup, sometimes you’ll need to repeat the execution of
 
 To avoid repeating the task several times in your playbook file, it’s better to use loops instead. There are different kinds of [loops](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html). Here we take a look at standard ones.
 
-### with_items
+### with\_items
 
-```
+```text
 [user1@controller demo-var]$ cat loop-playbook1.yaml
 ---
 
@@ -625,7 +625,7 @@ To avoid repeating the task several times in your playbook file, it’s better t
 
 and lets run it:
 
-```
+```text
 [user1@controller demo-var]$ ansible-playbook loop-playbook1.yaml
 
 PLAY [ubuntu] *********************************************************************************
@@ -643,7 +643,7 @@ ubuntu                     : ok=2    changed=1    unreachable=0    failed=0    s
 
 and if we run it again:
 
-```
+```text
 [user1@controller demo-var]$ ansible-playbook loop-playbook1.yaml
 
 PLAY [ubuntu] ***************************************************************************************************************************
@@ -662,9 +662,9 @@ ubuntu                     : ok=2    changed=0    unreachable=0    failed=0    s
  `with_items` is replaced by `loop` and the `flatten` filter.
 {% endhint %}
 
-### with_file
+### with\_file
 
-```
+```text
 ---
 
 # sample loop with with_file loop-playbook2.yaml
@@ -680,7 +680,7 @@ ubuntu                     : ok=2    changed=0    unreachable=0    failed=0    s
       - myfile2.txt
 ```
 
-```
+```text
 [user1@controller demo-var]$ cat myfile1.txt
 This is myfile1.txt, first line :-)
 [user1@controller demo-var]$
@@ -690,7 +690,7 @@ This is myfile2.txt, first line :-0
 
 And lets run it:
 
-```
+```text
 [user1@controller demo-var]$ ansible-playbook loop-playbook2.yaml
 
 PLAY [ubuntu] ***************************************************************************************************************************
@@ -710,9 +710,9 @@ PLAY RECAP *********************************************************************
 ubuntu                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-### with_sequenece
+### with\_sequenece
 
-```
+```text
 ---
 
 # sample loop with with_sequenece loop-playbook3.yaml
@@ -728,7 +728,7 @@ ubuntu                     : ok=2    changed=0    unreachable=0    failed=0    s
 
 run:
 
-```
+```text
 [user1@controller demo-var]$ ansible-playbook loop-playbook3.yaml
 
 PLAY [ubuntu] ***************************************************************************************************************************
@@ -779,16 +779,17 @@ Do not forget that the loop definitions comes at the end of your task.
 
 [https://www.thegeeksearch.com/beginners-guide-to-ansible-facts/](https://www.thegeeksearch.com/beginners-guide-to-ansible-facts/)
 
-[https://linuxhint.com/ansible_debug_module/](https://linuxhint.com/ansible_debug_module/)
+[https://linuxhint.com/ansible\_debug\_module/](https://linuxhint.com/ansible_debug_module/)
 
 [https://www.decodingdevops.com/ansible-debug-module-with-examples/](https://www.decodingdevops.com/ansible-debug-module-with-examples/)
 
 [http://www.mydailytutorials.com/ansible-register-variables/](http://www.mydailytutorials.com/ansible-register-variables/)
 
-[https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html)
+[https://docs.ansible.com/ansible/latest/user\_guide/playbooks\_conditionals.html](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html)
 
 [https://www.linuxtechi.com/use-when-conditions-in-ansible-playbook/](https://www.linuxtechi.com/use-when-conditions-in-ansible-playbook/)
 
-[https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
+[https://docs.ansible.com/ansible/latest/user\_guide/playbooks\_loops.html](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html)
 
 .
+

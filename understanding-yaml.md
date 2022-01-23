@@ -28,15 +28,15 @@ The main advantage of using YAML is readability and writability. If you have a c
 When you are creating a file in YAML, you should remember the following basic rules:
 
 * YAML is **case sensitive**
-* The files should have **.yaml **or** .yml** as the extension
-* YAML** does not allow the use of tabs** while creating YAML files; spaces are allowed instead
+* The files should have **.yaml** or **.yml** as the extension
+* YAML **does not allow the use of tabs** while creating YAML files; spaces are allowed instead
 {% endhint %}
 
-### The structure of a YAML file <a href="the-structure-of-a-yaml-file" id="the-structure-of-a-yaml-file"></a>
+### The structure of a YAML file <a id="the-structure-of-a-yaml-file"></a>
 
 The file starts with three dashes. These dashes indicate the start of a new YAML document. 
 
-```
+```text
 ---
 
 
@@ -70,7 +70,7 @@ Here are a few notes about YAML syntax:
 
 ### Strings
 
-```
+```text
 # Strings don't require quotes:
 title: Introduction to YAML
 
@@ -86,7 +86,7 @@ execute: |
 
 ### Numbers
 
-```
+```text
 # Integers:
 age: 35
 
@@ -96,7 +96,7 @@ price: 18.99
 
 ### Boolean
 
-```
+```text
 # Boolean values can be written in different ways:
 published: false
 published: False
@@ -105,7 +105,7 @@ published: FALSE
 
 ### Null values
 
-```
+```text
 # Null can be represented by simply not setting a value:
 null-value: 
 
@@ -117,7 +117,7 @@ null-value: Null
 
 ### Dates & timestamps
 
-```
+```text
 # ISO-Formatted dates can be used
 
 date: 2002-12-14
@@ -128,7 +128,7 @@ spaced: 2001-12-14 21:59:43.10 -5
 
 ### Arrays / Lists
 
-```
+```text
 # A list of numbers using hyphens:
 numbers:
     - one
@@ -141,7 +141,7 @@ numbers: [ one, two, three ]
 
 ### Dictionaries
 
-```
+```text
 # An employee record
 martin:
   name: Martin D'vloper
@@ -162,7 +162,7 @@ Dictionary is an unordered collection whereas lists are ordered collection.
 
 We can use all of the above types to create an object with nested values, such as lists of dictionaries, dictionaries whose values are lists or a mix of both:
 
-```
+```text
 # Employee records
 - martin:
     name: Lisa
@@ -182,7 +182,7 @@ We can use all of the above types to create an object with nested values, such a
 
 ### List of Objects
 
-```
+```text
 # Let's list books:
 - nineteen-eighty-four:
     author: George Orwell
@@ -209,13 +209,13 @@ Also remember any line beginning with a hash is automatically ignored and consid
 
 .
 
-[https://www.tutorialspoint.com/ansible/ansible_yaml_basics.htm](https://www.tutorialspoint.com/ansible/ansible_yaml_basics.htm)
+[https://www.tutorialspoint.com/ansible/ansible\_yaml\_basics.htm](https://www.tutorialspoint.com/ansible/ansible_yaml_basics.htm)
 
 [https://www.guru99.com/ansible-tutorial.html](https://www.guru99.com/ansible-tutorial.html)
 
-[https://www.tutorialspoint.com/yaml/yaml_introduction.htm](https://www.tutorialspoint.com/yaml/yaml_introduction.htm)
+[https://www.tutorialspoint.com/yaml/yaml\_introduction.htm](https://www.tutorialspoint.com/yaml/yaml_introduction.htm)
 
-[https://www.tutorialspoint.com/yaml/yaml_basics.htm](https://www.tutorialspoint.com/yaml/yaml_basics.htm)
+[https://www.tutorialspoint.com/yaml/yaml\_basics.htm](https://www.tutorialspoint.com/yaml/yaml_basics.htm)
 
 [https://geekflare.com/yaml-introduction/](https://geekflare.com/yaml-introduction/)
 
@@ -223,7 +223,9 @@ Also remember any line beginning with a hash is automatically ignored and consid
 
 [https://dev.to/paulasantamaria/introduction-to-yaml-125f](https://dev.to/paulasantamaria/introduction-to-yaml-125f)
 
-[https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html)
+[https://docs.ansible.com/ansible/latest/reference\_appendices/YAMLSyntax.html](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html)
 
 .
+
+
 

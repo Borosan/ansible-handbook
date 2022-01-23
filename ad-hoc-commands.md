@@ -4,11 +4,11 @@
 
 One of the simplest ways Ansible can be used is by using ad-hoc commands. These can be used when you want to issue some commands on a server or a bunch of servers. Ad-hoc commands are not stored for future uses but represent a fast way to interact with the desired servers.
 
-```
+```text
 ansible [pattern] -m [module] -a "[module options]"
 ```
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible all  -a "uptime"
 centos | CHANGED | rc=0 >>
  11:31:04 up 1 day, 51 min,  3 users,  load average: 0.00, 0.01, 0.05
@@ -22,9 +22,9 @@ ad hoc tasks can be used to reboot servers, copy files, manage packages and user
 
 ###  privilege escalation
 
-By default ansible in ad-hoc mode  is not going to ** **escalate privilege
+By default ansible in ad-hoc mode  is not going to  ****escalate privilege
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible all -a "whoami"
 ubuntu | CHANGED | rc=0 >>
 user1
@@ -32,9 +32,9 @@ centos | CHANGED | rc=0 >>
 user1
 ```
 
-as you can see, the command `whoami` has been execute as regular user on remote targets. If we need to run thing that requires more access or we want to   escalate privileges we have to use **`-b`** or** become** switch:
+as you can see, the command `whoami` has been execute as regular user on remote targets. If we need to run thing that requires more access or we want to   escalate privileges we have to use **`-b`** or **become** switch:
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible all -b -a "whoami"
 ubuntu | CHANGED | rc=0 >>
 root
@@ -46,7 +46,7 @@ root
 
  The default module for the ansible command-line utility is the ansible built-in **command** module. You can use an ad-hoc task to call the command module and reboot all servers:
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible all -m command -a "reboot"
 centos | FAILED | rc=2 >>
 [Errno 2] No such file or directory
@@ -57,9 +57,9 @@ Failed to open /dev/initctl: Permission denied
 Failed to talk to init daemon.non-zero return code
 ```
 
-it gives us errors, because it doesn't escalate privilege, lets use` -b` switch:
+it gives us errors, because it doesn't escalate privilege, lets use `-b` switch:
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible all -b  -a "reboot"
 centos | FAILED | rc=-1 >>
 Failed to connect to the host via ssh: ssh: connect to host centos port 22: Connection refused
@@ -69,7 +69,7 @@ Failed to connect to the host via ssh: ssh: connect to host ubuntu port 22: Conn
 
 And all targets have been rebooted. Lets wait for a minute  and check:
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible all -m shell -a "uptime"
 centos | CHANGED | rc=0 >>
  13:53:58 up 0 min,  2 users,  load average: 0.21, 0.08, 0.03
@@ -79,7 +79,7 @@ ubuntu | CHANGED | rc=0 >>
 
 ### shutting down servers
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible all -b -a "shutdown -r"
 centos | CHANGED | rc=0 >>
 Shutdown scheduled for Mon 2021-06-28 13:58:27 +0430, use 'shutdown -c' to cancel.
@@ -89,7 +89,7 @@ Shutdown scheduled for Mon 2021-06-28 02:28:27 PDT, use 'shutdown -c' to cancel.
 
 and lets quickly cancel it:
 
-```
+```text
 [user1@controller demo-adhoc]$ date
 Mon Jun 28 17:27:36 +0430 2021
 [user1@controller demo-adhoc]$ ansible all -b -a "shutdown -c"
@@ -102,7 +102,7 @@ centos | CHANGED | rc=0 >>
 
 Lets install a web server on ubuntu machine:
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible all -b -m apt -a "name=apache2 state=present"
 [WARNING]: Updating cache and auto-installing missing dependency: python-apt
 centos | FAILED! => {
@@ -191,7 +191,7 @@ ubuntu | CHANGED => {
 
 Obviously there is not apt program on centos machine so it troughs an error but install apache2 package on ubuntu machine. Lets run it again:
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible all -b -m apt -a "name=apache2 state=present"
 [WARNING]: Updating cache and auto-installing missing dependency: python-apt
 centos | FAILED! => {
@@ -215,7 +215,7 @@ ubuntu | SUCCESS => {
 
 lets run the command again  with yum module:   
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible all -b -m yum -a "name=httpd state=latest"
 ubuntu | FAILED! => {
     "ansible_facts": {
@@ -263,13 +263,13 @@ centos | CHANGED => {
 }
 ```
 
-> state=latest not only install the package if it is not there , but it will update it if it is there with an older version! 
+> state=latest not only install the package if it is not there , but it will update it if it is there with an older version!
 
 ### removing a package
 
 lets remove apache2 from ubuntu machine:
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible ubuntu -b -m apt -a "name=apache2 state=absent"
 ubuntu | CHANGED => {
     "ansible_facts": {
@@ -320,7 +320,7 @@ ubuntu | CHANGED => {
 }
 ```
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible ubuntu -b -m apt -a "name=apache2 state=absent"
 ubuntu | SUCCESS => {
     "ansible_facts": {
@@ -334,7 +334,7 @@ ubuntu | SUCCESS => {
 
 Lets enable httpd service on all hosts:
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible all -b -m service -a "name=apache2 enabled=true"
 centos | FAILED! => {
     "ansible_facts": {
@@ -376,19 +376,19 @@ There is no apache2 service on centos  so it couldn't start it, but it enabled a
 Service module does not make sure that the service exist! So sometimes you should make sure what state your system is in!
 {% endhint %}
 
- We can also start a service with`ansible all -m service -a "name=httpd state=started" `command`.` 
+ We can also start a service with`ansible all -m service -a "name=httpd state=started"` command`.` 
 
 ###  File system Management using ad-hoc commands
 
 Ansible can interact with system but it can also interact with remote file system on all of the computers. There are different modules which behave in suddenly different ways. **command module, shell module, raw module,** Lets compare them
 
-| **command Module**               | **shell module**                                    | **raw module**                   |
-| -------------------------------- | --------------------------------------------------- | -------------------------------- |
-| **doesn't use shell (bash/sh)**  | **supports pipes and redirects**                    | **just sends commands over SSH** |
-| **Can't use pipes or redirects** | **Can get messed up by user settings(/etc/bashrc)** | **doesn't need Python**          |
-| _safest_                         | _safer_                                             | _safe_                           |
+| **command Module** | **shell module** | **raw module** |
+| :--- | :--- | :--- |
+| **doesn't use shell \(bash/sh\)** | **supports pipes and redirects** | **just sends commands over SSH** |
+| **Can't use pipes or redirects** | **Can get messed up by user settings\(/etc/bashrc\)** | **doesn't need Python** |
+| _safest_ | _safer_ | _safe_ |
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible lab -b -m command -a 'echo "By command"  > /root/myfile.txt'
 centos | CHANGED | rc=0 >>
 By command > /root/myfile.txt
@@ -410,7 +410,7 @@ Shared connection to ubuntu closed.
 
 and check the results on one of target machines:
 
-```
+```text
 [root@centos ~]# pwd
 /root
 [root@centos ~]# ls -l myfile.txt
@@ -424,7 +424,7 @@ By raw
 
 **file module: i**t gives the power of file management to us, lets remove a file:
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible lab -b -m file -a "path=/root/myfile.txt state=absent"
 centos | CHANGED => {
     "ansible_facts": {
@@ -446,7 +446,7 @@ ubuntu | CHANGED => {
 
 and run it again:
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible lab -b -m file -a "path=/root/myfile.txt state=absent"
 centos | SUCCESS => {
     "ansible_facts": {
@@ -466,9 +466,9 @@ ubuntu | SUCCESS => {
 }
 ```
 
-**Copy module: **We can send  files from one server to the other one:
+**Copy module:** We can send  files from one server to the other one:
 
-```
+```text
 [user1@controller demo-adhoc]$ ansible centos -b -m copy -a "src=/etc/hosts dest=/etc/hosts"
 centos | CHANGED => {
     "ansible_facts": {
@@ -497,8 +497,9 @@ The ad-hoc system is powerful with some limitations. Keep reading to see other A
 
 .
 
-[https://www.guru99.com/ansible-tutorial.html#6](https://www.guru99.com/ansible-tutorial.html#6)
+[https://www.guru99.com/ansible-tutorial.html\#6](https://www.guru99.com/ansible-tutorial.html#6)
 
-[https://docs.ansible.com/ansible/latest/user_guide/intro_adhoc.html](https://docs.ansible.com/ansible/latest/user_guide/intro_adhoc.html)
+[https://docs.ansible.com/ansible/latest/user\_guide/intro\_adhoc.html](https://docs.ansible.com/ansible/latest/user_guide/intro_adhoc.html)
 
 .
+
