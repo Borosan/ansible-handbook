@@ -6,13 +6,12 @@ This is where the different configuration management solutions came up to reduce
 
 By Payam Borosan
 
-* Site: [www.linuxcert.ir](http://linuxcert.ir)
+* Site: [www.linuxcert.ir](http://linuxcert.ir/)
 * GitBook: [https://borosan.gitbook.io/ansible-handbook/](https://borosan.gitbook.io/ansible-handbook/)
 * e-mail: p.borosan \[at] gmail.com
 
 Donation :
 
-* payping (from IR): [https://payping.ir/borosan](https://payping.ir/borosan)
 * coffeete (from IR): [https://www.coffeete.ir/borosan](https://www.coffeete.ir/borosan)
 * bitcoin: bc1qhm5nr98su6xupv4dd6zt2m0sq2dzxh69zejm85
 * ethereum: 0x6F3D43A6957CC61b74Fe85Ad52D05d91a2B13c67
